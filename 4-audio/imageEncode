@@ -1,0 +1,192 @@
+#!/usr/bin/perl
+#Author: Evan Salazar
+#------------------------------------------
+#
+#Convert bitmap image into audo file that
+#can be seen in a spectrogram
+#
+#------------------------------------------
+use SimpleWave;
+use POSIX;
+use Math::Trig;
+use Image::BMP;
+use Getopt::Std;
+use strict;
+
+
+################
+#Constants used
+################
+#Version
+my $version = 0.7;
+
+#low frequency 
+my $lowfreq = 200;
+#high frequency:
+my $highfreq = 20000;
+#Sample rate for CD quality
+#(The only frequency supported as of now)
+my $samplerate = 44100;
+
+
+
+#Parse commadn line arguments
+my ($input,$output,$pixelsecond,$highamp,$inverse) = parseArgs();
+print "Input: $input \nOutput: $output \n";
+print "Pixel per second: $pixelsecond \nMax amplitude per sample: $highamp \n";
+print "Image color inverted\n" if ($inverse);
+
+
+#Open BMP
+my $img = new Image::BMP(file=> $input);
+
+#Create file to write to
+open(WAVEFILE, ">$output");
+
+#Get width and height
+my $width = $img->{Width}; 
+my $height = $img->{Height};
+
+print "Image Width: $width Height: $height \n";
+
+#scale frequency per height;
+my $freqrange = $highfreq-$lowfreq;
+my $interval = $freqrange / $height;
+print "Frequency Interval: $interval\n";
+
+#Calculate samples per width pixel;
+my $samplespixel =  POSIX::floor($samplerate / $pixelsecond);  
+print "Samples per Pixel: $samplespixel \n";
+
+
+#This is the main algorithm
+my @audioOut;
+for (my $x=0;$x<$width;$x++) {
+    #Calculate rows;
+    my @audiorow;
+    my $pos=0;
+    for (my $y=0;$y<$height;$y++) {
+    my $yinv = $height - $y - 1;
+	#Get the amplitude
+	my $amp =  color($img->xy_rgb($x,$y));
+	if($amp > 0) {
+	    #Generate a sine wave 
+	    @audiorow[$pos++] = genSine( $yinv * $interval + $lowfreq ,$amp,$samplespixel,$samplerate);
+	}
+    }
+
+    #Add all the samples for the column 
+    for(my $i=0;$i<$samplespixel;$i++) {
+	for(my $j=0;$j<@audiorow;$j++) {
+	    @audioOut[$i + $x * $samplespixel] += $audiorow[$j]->[$i];
+	}
+    }
+    #My attempt to print the progress
+    #my $done = POSIX::floor($x / ($width - 1) * 100);
+    #print "$done "  if (($done % 10) == 0); 
+}
+
+print "\nGenerating wave file \n";
+#Write samples to wave file
+print WAVEFILE SimpleWave::genWave(\@audioOut);
+
+
+#-----------------------------------------
+#
+#Generate a sine wave for the given 
+#frequency and amplitude 
+#
+#(This functions could be faster by using 
+#a lookup table instead of calculating the
+#wave every time)
+#
+#-----------------------------------------
+sub genSine {
+
+    my ($frequency,$amplitude,$samples,$samplerate) = @_;
+    my $cycles = $samples * $frequency / $samplerate;
+    
+    my @audioArray;
+    for(my $i=0;$i<$samples;$i++)
+    {
+	my $x = sin($cycles * 2 * pi * $i / $samples) * $amplitude;
+	$audioArray[$i] = POSIX::floor($x);
+    }
+
+    return \@audioArray;
+}
+
+#-----------------------------------------
+#
+#Convert the RGB value to a amplitude
+#
+#-----------------------------------------
+sub color {
+    my ($r,$g,$b) = @_;
+    my $total = $r + $g + $b;   
+    #Invert the color if -I is set
+    $total = 765 - $total if($inverse);
+    my $amp = $total / 765 * $highamp;  
+
+    #Ignore all intensitys under 50
+    if($amp > 50) {
+	return $amp;
+    }
+    return 0;
+}
+
+
+#-----------------------------------------
+#
+#Read arguments from the command line;
+#
+#-----------------------------------------
+sub parseArgs {
+
+    #Default arguments
+    my $pixelsecond = 15;
+    my $highamp = 300;
+    my $inverse = 0;
+
+    #Set options for reading
+    my %args = ();
+    getopts("i:o:p:a:hI",\%args);
+
+    help() if($args{h}); 
+    help("Need input filename") if(!$args{i}); 
+    help("Need output filename") if(!$args{o}); 
+    $pixelsecond = $args{p} if($args{p}); 
+    $highamp = $args{a} if($args{a}); 
+    $inverse = 1 if($args{I}); 
+
+    return ($args{i},$args{o},$pixelsecond,$highamp,$inverse);
+}
+
+
+#-----------------------------------------
+#
+#Display help message for program
+#
+#-----------------------------------------
+sub help {
+
+    my ($message) = @_;
+    print <<EOF;
+Image Encode Ver $version by Evan Salazar
+Encode an bitmat to a wave that can be viewed 
+with a spectrogram
+-----------------------------------------------------------------
+Usage: imageEncode -i input.bmp -o output.wav
+
+  -i [File]	Input bitmap (Best use small BMP arround 100x150) 
+  -o [File]	Output wave (44.1khz 16bit mono)
+  -p [int]	Pixels per Second (default: 10)
+  -a [int]	Max amplitude per sample (default: 200) Max: 32000
+  -I		Invert image color (Best for dark images)
+  -h		Display this help message
+-------------------------------------------------------------------
+EOF
+    print "Error: $message \n" if($message ne '');
+    exit(1);
+}
+
