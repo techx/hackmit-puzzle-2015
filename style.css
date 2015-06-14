@@ -16,6 +16,7 @@ body {
 	float: none;
 	padding: 0;
 	height: 70vh;
+	width: 100%;
 	max-width: 1000px;
 	display: block;
     margin-left: auto;
