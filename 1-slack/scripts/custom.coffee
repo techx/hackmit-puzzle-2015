@@ -26,6 +26,10 @@ module.exports = (robot) ->
     if res.message.room.toLowerCase() == "general"
       res.send "such puzzle"
 
+  robot.hear /many (.*)/i, (res) ->
+    if res.message.room.toLowerCase() == "general"
+      res.send "many swag"
+
   robot.hear /pls/i, (res) ->
     if res.message.room.toLowerCase() == "general"
       res.send "pls message"
@@ -36,7 +40,7 @@ module.exports = (robot) ->
 
   #direct message responses
 
-  robot.hear /much|very|so|such|wow/i, (res) ->
+  robot.hear /much|very|so|such|wow|many/i, (res) ->
     if res.message.room.toLowerCase() == res.message.user.name.toLowerCase()
       line_num = get_random_int(0,lines.length-1)
       res.send "#{lines[line_num]} (#{letters[line_num]})"
