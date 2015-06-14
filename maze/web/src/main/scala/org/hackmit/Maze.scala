@@ -4,12 +4,38 @@ object Maze {
 
   // let's just put this inline here...
   val mazeStr: String = """
-  |##########
-  |#S########
-  |#   #   ##
-  |###   #*##
-  |##########
-  """.trim.stripMargin
+###############################
+# # #         #   # #         #
+# # # ########### # ##### # # #
+#                   #     # # #
+# # ##### ### ### ### # #######
+# #   # # # # #   #   # #     #
+# ##### # # ####### ### # #####
+#   # #     #       # #       #
+# ### ####### # ### # # ### ###
+#   # #   #   # #     # #     #
+# ### # ### ####### # ### # ###
+#           # #   # #   # #   #
+# ### ### # # # ####### # # # #
+#   #   # #         #   # # # #
+# # ### ### ##### ##### #######
+# # #   #   #  S      #       #
+##### # # # ##### ##### # # # #
+#     # # #     #     # # # # #
+# # # # ### ### ### ####### ###
+# # # # # # # # # #   # # # # #
+### ### # # # # # # ### # ### #
+#   #   #     # #           # #
+# ##### ### ################# #
+# #     #           #   # #   #
+####### ### # # ##### ### ### #
+#         # # # #             #
+# ### # # ##### # # ##### ### #
+# # # # #     # # # # #     # #
+# # # ### # ### # ### ### ### #
+# #     # # #           #   # #
+###############################
+  """.trim
 
   def isPassable(c: Char): Boolean = c != '#'
   def isEmpty(c: Char): Boolean = c == ' '
@@ -44,6 +70,20 @@ object Maze {
     }) == 1
   }
   require {
+    // all important stuff is located on nodes
+    lines.zipWithIndex forall { case (ln, y) =>
+      ln.zipWithIndex forall { case (c, x) =>
+        if (x % 2 == 1 && y % 2 == 1) {
+          isPassable(c)
+        } else if (x % 2 == 0 && y % 2 == 0) {
+          !isPassable(c)
+        } else {
+          !isPassable(c) || isEmpty(c)
+        }
+      }
+    }
+  }
+  require {
     // everything is well-defined
     lines forall { ln =>
       ln forall { c =>
@@ -71,15 +111,16 @@ object Maze {
     case (x, y) => lines(y)(x)
   }
 
-  def move(steps: String): Seq[(Int, Int)] = steps.scanLeft(start) { (pos, step) =>
+  def move(steps: String): Seq[(Int, Int)] = (steps.scanLeft(Seq(start)) { (partial, step) =>
+    val pos = partial.last
     step match {
-      case 'U' => (pos._1, pos._2 - 1)
-      case 'D' => (pos._1, pos._2 + 1)
-      case 'L' => (pos._1 - 1, pos._2)
-      case 'R' => (pos._1 + 1, pos._2)
-      case _ => pos // if there's garbage, we ignore it
+      case 'U' => Seq((pos._1, pos._2 - 1), (pos._1, pos._2 - 2))
+      case 'D' => Seq((pos._1, pos._2 + 1), (pos._1, pos._2 + 2))
+      case 'L' => Seq((pos._1 - 1, pos._2), (pos._1 - 2, pos._2))
+      case 'R' => Seq((pos._1 + 1, pos._2), (pos._1 + 2, pos._2))
+      case _ => Seq(pos) // if there's garbage, we ignore it
     }
-  }
+  }).flatten
 
   // steps contain L, R, U, D, positions wrt start
   def stepsOk(steps: String): Boolean = {
