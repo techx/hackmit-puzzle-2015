@@ -29,6 +29,24 @@ trait MazeService extends HttpService {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
             <html>
+              <head>
+                <title>Dogesplorer!</title>
+                <style>
+                {scala.xml.Unparsed("""
+                  pre {
+                    font-size: 5em;
+                    font-family: Menlo, "Courier New", Monaco, monospace;
+                  }
+                  a {
+                    text-decoration: none;
+                    color: green;
+                  }
+                  span {
+                    color: red;
+                  }
+                """)}
+                </style>
+              </head>
               <body>
                 {process(steps)}
               </body>
@@ -38,8 +56,25 @@ trait MazeService extends HttpService {
       }
     }
 
-  def process(steps: String) = {
-    <p>{steps}</p><p>{Maze.mazeStr}</p>
+  def process(steps: String): scala.xml.Elem = {
+    import Maze._
+    if (!stepsOk(steps)) {
+      <p>:(</p>
+    } else {
+      val loc = end(steps)
+      val lf = "\n"
+      val up = if (upFree(loc)) { <a href={s"/${steps}U"}>-</a> } else { <span>-</span> }
+      val down = if (downFree(loc)) { <a href={s"/${steps}D"}>-</a> } else { <span>-</span> }
+      val left = if (leftFree(loc)) { <a href={s"/${steps}L"}>|</a> } else { <span>|</span> }
+      val right = if (rightFree(loc)) { <a href={s"/${steps}R"}>|</a> } else { <span>|</span> }
+      val mid = specialAt(loc) map { case (c, url) =>
+        <a href={url}>{c}</a>
+      } getOrElse {
+        " "
+      }
+
+      <pre>+{up}+{lf}{left}{mid}{right}{lf}+{down}+</pre>
+    }
   }
 
 }

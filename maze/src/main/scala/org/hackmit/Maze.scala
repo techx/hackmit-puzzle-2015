@@ -5,18 +5,18 @@ object Maze {
   // let's just put this inline here...
   val mazeStr: String = """
   |##########
-  |#*########
+  |#S########
   |#   #   ##
-  |### # #a##
+  |###   #*##
   |##########
   """.trim.stripMargin
 
   def isPassable(c: Char): Boolean = c != '#'
   def isEmpty(c: Char): Boolean = c == ' '
-  def isStart(c: Char): Boolean = c == '*'
+  def isStart(c: Char): Boolean = c == 'S'
   def isSpecial(c: Char): Boolean = special isDefinedAt c
   val special: PartialFunction[Char, String] = {
-    case 'a' => "hello"
+    case '*' => "https://www.hackmit.org"
   }
 
   val lines: Array[String] = mazeStr split "\n"
@@ -106,6 +106,12 @@ object Maze {
   def rightFree(loc: (Int, Int)): Boolean = {
     val right = (loc._1 + 1, loc._2)
     inBounds(right) && isPassable(charAt(right))
+  }
+  def specialAt(loc: (Int, Int)): Option[(Char, String)] = if (inBounds(loc)) {
+    val c = charAt(loc)
+    special lift c map { res => (c, res) }
+  } else {
+    None
   }
 
 }
