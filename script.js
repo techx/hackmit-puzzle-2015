@@ -15,14 +15,14 @@ function playSound() {
 	}
 	playing = true;
 	count += 1;
-	console.log(count, playing);
+	// console.log(count, playing);
 }
 
 function reset() {
 	if (playing === true) {
 		pic.style.backgroundImage="url('doge1.png')";
 		playing = false;
-		console.log(playing);
+		// console.log(playing);
 	}
 }
 
