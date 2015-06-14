@@ -23,7 +23,10 @@ class MazeServiceActor extends Actor with MazeService {
 // this trait defines our service behavior independently from the service actor
 trait MazeService extends HttpService {
 
-  val myRoute =
+  val myRoute = {
+    pathPrefix("static") {
+      getFromResourceDirectory("static")
+    } ~
     path(Rest) { steps =>
       get {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
@@ -55,11 +58,12 @@ trait MazeService extends HttpService {
         }
       }
     }
+  }
 
   def process(steps: String): scala.xml.Elem = {
     import Maze._
     if (!stepsOk(steps)) {
-      <p>:(</p>
+      <pre><span>:(</span></pre>
     } else {
       val loc = end(steps)
       val lf = "\n"

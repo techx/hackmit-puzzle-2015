@@ -19,7 +19,7 @@ object Maze {
 # ### ### # # # ####### # # # #
 #   #   # #         #   # # # #
 # # ### ### ##### ##### #######
-# # #   #   #  S      #       #
+# # #   #   #  S *    #       #
 ##### # # # ##### ##### # # # #
 #     # # #     #     # # # # #
 # # # # ### ### ### ####### ###
@@ -42,7 +42,7 @@ object Maze {
   def isStart(c: Char): Boolean = c == 'S'
   def isSpecial(c: Char): Boolean = special isDefinedAt c
   val special: PartialFunction[Char, String] = {
-    case '*' => "https://www.hackmit.org"
+    case '*' => "/static/test.txt"
   }
 
   val lines: Array[String] = mazeStr split "\n"
