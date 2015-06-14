@@ -1,5 +1,5 @@
 # Description:
-#   dogebot responses
+#   sets custom dogebot responses
 #
 # Dependencies:
 #
@@ -24,10 +24,8 @@ module.exports = (robot) ->
 
   #general channel responses
 
-  robot.respond /speak (.*)/i, (res) ->
-    if res.message.room.toLowerCase() == "general"
-      res.send "so very much such pls many wow"
-
+  robot.respond /speak/i, (res) ->
+    res.send "so very much such pls many wow"
 
   robot.hear /much (.*)/i, (res) ->
     if res.message.room.toLowerCase() == "general"
