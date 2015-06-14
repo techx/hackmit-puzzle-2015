@@ -24,17 +24,22 @@ class MazeServiceActor extends Actor with MazeService {
 trait MazeService extends HttpService {
 
   val myRoute =
-    path(Rest) { directions =>
+    path(Rest) { steps =>
       get {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
             <html>
               <body>
-                <p>Your path is {directions}</p>
+                {process(steps)}
               </body>
             </html>
           }
         }
       }
     }
+
+  def process(steps: String) = {
+    <p>{steps}</p><p>{Maze.mazeStr}</p>
+  }
+
 }
