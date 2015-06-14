@@ -56,13 +56,17 @@ trait MazeService extends HttpService {
           pre {
             font-size: 5em;
             font-family: Menlo, "Courier New", Monaco, monospace;
+            color: #ff00ff;
           }
           a {
             text-decoration: none;
-            color: green;
+            color: #00ff00;
           }
           span {
-            color: red;
+            color: #ff0000;
+          }
+          .special {
+            color: #00ffff;
           }
         """)}
         </style>
@@ -89,7 +93,7 @@ trait MazeService extends HttpService {
       val left = if (leftFree(loc)) { <a href={s"/${steps}L"}>|</a> } else { <span>|</span> }
       val right = if (rightFree(loc)) { <a href={s"/${steps}R"}>|</a> } else { <span>|</span> }
       val mid = specialAt(loc) map { case (c, url) =>
-        <a href={url}>{c}</a>
+        <a href={url} class="special">{c}</a>
       } getOrElse {
         " "
       }
