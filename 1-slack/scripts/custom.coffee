@@ -60,7 +60,7 @@ module.exports = (robot) ->
   robot.hear /much|very|so|such|wow|many/i, (res) ->
     if res.message.room.toLowerCase() == res.message.user.name.toLowerCase()
       line_num = get_random_int(0,lines.length-1)
-      res.send "#{lines[line_num]} (#{letters[line_num]})"
+      res.send "#{lines[line_num]} shh #{letters[line_num]}"
 
 letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 
