@@ -1,5 +1,7 @@
 package org.hackmit
 
+import java.security.MessageDigest
+
 object Maze {
 
   // let's just put this inline here...
@@ -7,33 +9,33 @@ object Maze {
 ###############################
 # # #         #   # #         #
 # # # ########### # ##### # # #
-#                   #     # # #
+#~                 *#     # # #
 # # ##### ### ### ### # #######
 # #   # # # # #   #   # #     #
 # ##### # # ####### ### # #####
-#   # #     #       # #       #
+#   # #     #       # #      &#
 # ### ####### # ### # # ### ###
 #   # #   #   # #     # #     #
 # ### # ### ####### # ### # ###
-#           # #   # #   # #   #
+#    ^      # #   # #   # #   #
 # ### ### # # # ####### # # # #
-#   #   # #         #   # # # #
+#   #   # #      ?  #   # # # #
 # # ### ### ##### ##### #######
-# # #   #   #  S *    #       #
+# # #   #   #  S      #       #
 ##### # # # ##### ##### # # # #
 #     # # #     #     # # # # #
 # # # # ### ### ### ####### ###
-# # # # # # # # # #   # # # # #
+# # # # # # # # # #   # # #%# #
 ### ### # # # # # # ### # ### #
-#   #   #     # #           # #
+#   #$  #     # #           # #
 # ##### ### ################# #
 # #     #           #   # #   #
 ####### ### # # ##### ### ### #
-#         # # # #             #
+#         # # #@#             #
 # ### # # ##### # # ##### ### #
 # # # # #     # # # # #     # #
 # # # ### # ### # ### ### ### #
-# #     # # #           #   # #
+# #     # # #           #  !# #
 ###############################
   """.trim
 
@@ -41,8 +43,24 @@ object Maze {
   def isEmpty(c: Char): Boolean = c == ' '
   def isStart(c: Char): Boolean = c == 'S'
   def isSpecial(c: Char): Boolean = special isDefinedAt c
+  def staticPng(c: Char): String = {
+    val secret = "w0wsuchd0ge!"
+    val str = secret + c
+    val hash = (MessageDigest getInstance "MD5" digest str.getBytes map {
+      "%02X".format(_)
+    }).mkString.toLowerCase
+    return s"/static/${hash}.png"
+  }
   val special: PartialFunction[Char, String] = {
-    case '*' => "/static/test.txt"
+    case '!' => staticPng('m')
+    case '@' => staticPng('u')
+    case '$' => staticPng('c')
+    case '%' => staticPng('h')
+    case '^' => staticPng('s')
+    case '&' => staticPng('n')
+    case '*' => staticPng('a')
+    case '~' => staticPng('r')
+    case '?' => staticPng('l')
   }
 
   val lines: Array[String] = mazeStr split "\n"

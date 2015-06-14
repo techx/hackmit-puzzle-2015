@@ -27,43 +27,60 @@ trait MazeService extends HttpService {
     pathPrefix("static") {
       getFromResourceDirectory("static")
     } ~
+    path("static" / Rest) { _ =>
+      get {
+        respondWithMediaType(`text/html`) {
+          complete {
+            page(sadFace)
+          }
+        }
+      }
+    } ~
     path(Rest) { steps =>
       get {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
-            <html>
-              <head>
-                <title>Dogesplorer!</title>
-                <style>
-                {scala.xml.Unparsed("""
-                  pre {
-                    font-size: 5em;
-                    font-family: Menlo, "Courier New", Monaco, monospace;
-                  }
-                  a {
-                    text-decoration: none;
-                    color: green;
-                  }
-                  span {
-                    color: red;
-                  }
-                """)}
-                </style>
-              </head>
-              <body>
-                {process(steps)}
-              </body>
-            </html>
+            page(process(steps))
           }
         }
       }
     }
   }
 
+  def page(content: scala.xml.Elem) = {
+    <html>
+      <head>
+        <title>Dogesplorer!</title>
+        <style>
+        {scala.xml.Unparsed("""
+          pre {
+            font-size: 5em;
+            font-family: Menlo, "Courier New", Monaco, monospace;
+          }
+          a {
+            text-decoration: none;
+            color: green;
+          }
+          span {
+            color: red;
+          }
+        """)}
+        </style>
+      </head>
+      <body>
+        {content}
+      </body>
+    </html>
+  }
+
+  val sadFace = {
+    <pre><span>:(</span></pre>
+  }
+
   def process(steps: String): scala.xml.Elem = {
     import Maze._
     if (!stepsOk(steps)) {
-      <pre><span>:(</span></pre>
+      sadFace
     } else {
       val loc = end(steps)
       val lf = "\n"
@@ -76,7 +93,6 @@ trait MazeService extends HttpService {
       } getOrElse {
         " "
       }
-
       <pre>+{up}+{lf}{left}{mid}{right}{lf}+{down}+</pre>
     }
   }
