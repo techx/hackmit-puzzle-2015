@@ -1,4 +1,18 @@
-fs = require 'fs'
+# Description:
+#   dogebot responses
+#
+# Dependencies:
+#
+# Configuration:
+#
+# Commands:
+#   dogebot speak - How to speak with doges
+#
+# Notes:
+#
+# Author:
+#   kimberli
+
 #helpful http://doatt.com/2015/02/18/the-hubot-msg-object/
 #helper methods
 get_random_int = (min, max) ->
@@ -9,6 +23,11 @@ module.exports = (robot) ->
   robot.brain.set 'responses', lines
 
   #general channel responses
+
+  robot.respond /speak (.*)/i, (res) ->
+    if res.message.room.toLowerCase() == "general"
+      res.send "so very much such pls many wow"
+
 
   robot.hear /much (.*)/i, (res) ->
     if res.message.room.toLowerCase() == "general"
@@ -32,7 +51,7 @@ module.exports = (robot) ->
 
   robot.hear /pls/i, (res) ->
     if res.message.room.toLowerCase() == "general"
-      res.send "pls message"
+      res.send "pls message direct"
 
   robot.hear /wow/i, (res) ->
     if res.message.room.toLowerCase() == "general"
