@@ -48,13 +48,13 @@ window.onload = function() {
 
 	target.addEventListener("click",function() {
 		if (playing === false) {
-			pic.src="doge2.png";
+			pic.src="doge2.jpg";
 			song.play();
 			makeElement();
 			playing = true;
 			barking = true;
 			setTimeout(function(){
-				pic.src="doge1.png";
+				pic.src="doge1.jpg";
 				barking = false;
 			},500);
 		}
@@ -62,9 +62,9 @@ window.onload = function() {
 			bark.play();
 			barking = true;
 			makeElement();
-			pic.src="doge2.png";
+			pic.src="doge2.jpg";
 			setTimeout(function(){
-				pic.src="doge1.png";
+				pic.src="doge1.jpg";
 				barking = false;
 			},500);
 		}
