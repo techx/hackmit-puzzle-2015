@@ -14,7 +14,7 @@ def get_next_urls(text):
 
 def check_for_image(text):
     m = re.search("/static/[a-z0-9]+\.png", text)
-    if m != None:
+    if m:
         image_url = m.group()
         if image_url not in found:
             found[image_url] = None
