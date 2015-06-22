@@ -25,7 +25,7 @@ module.exports = (robot) ->
   #general channel responses
 
   robot.respond /speak/i, (res) ->
-    res.send "so very much such pls many wow"
+    res.send "so very much such pls many wow amaze"
 
   robot.hear /much (.*)/i, (res) ->
     if res.message.room.toLowerCase() == "general"
@@ -54,6 +54,10 @@ module.exports = (robot) ->
   robot.hear /wow/i, (res) ->
     if res.message.room.toLowerCase() == "general"
       res.send "wow #{res.message.user.name.toLowerCase()}"
+
+  robot.hear /amaze/i, (res) ->
+    if res.message.room.toLowerCase() == "general"
+      res.send "amaze #{res.message.user.name.toLowerCase()}"
 
   #direct message responses
 
