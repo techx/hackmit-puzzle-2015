@@ -3,7 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'HackMIT Command Center' });
+  if (req.isAuthenticated()) {
+    res.render('main', { currentUser: req.user.githubUsername });
+  } else {
+     res.render('index', { title: 'HackMIT Command Center' });
+  }
 });
 
 module.exports = router;
