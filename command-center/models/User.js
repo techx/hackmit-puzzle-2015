@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var helpers = require('../utils/helpers');
+var PuzzlePart = require('../PuzzlePart');
 
 var userSchema = new mongoose.Schema({
     githubUsername: { type: 'String', required: true },
@@ -17,12 +17,20 @@ userSchema.statics.findOrCreate = function(parameters, callback){
         } else if (user) {
             callback(null, user);
         } else {
-            User.create(parameters, function(err, user){
-                helpers.returnResponse(err, user, callback);
-            });
+            User.create(parameters, callback);
         }
     });
 }
+
+userSchema.method('getPuzzleParts', function(callback){
+    PuzzlePart.find({ 'user': this._id }, callback);
+});
+
+// flag user for being suspicious
+userSchema.method('flag', function(callback){
+    this.isSuspicious = true;
+    this.save(callback);
+})
 
 module.exports = mongoose.model('User', userSchema);
 
