@@ -1,7 +1,8 @@
 # Command Center App
 
 ### Dependencies
-You need to have `node.js` installed. Go [here](https://nodejs.org/download/) to get it if you don't have it already.
+- **Node.js** [Installation](https://nodejs.org/download/)
+- **MongoDB** [Installation](http://docs.mongodb.org/manual/installation/) You need to have the Mongo daemon running (just run `mongod`)
 
 ### Running Locally
 - Run `npm install` to get all the node modules you need installed locally.
