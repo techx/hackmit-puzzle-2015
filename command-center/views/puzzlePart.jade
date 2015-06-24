@@ -1,0 +1,10 @@
+mixin puzzlePart(p)
+    div.puzzlepart
+        h3 Puzzle #{p.number}
+        form
+            input(type="text", value=p.lastGuess)
+        if (p.completionTimestamp)
+            span ✓
+        else
+            button Submit Answer
+

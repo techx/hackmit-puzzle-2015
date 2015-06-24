@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var mongoose = require('mongoose');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 
@@ -22,7 +22,7 @@ passport.use(new GitHubStrategy({
         callbackURL: process.env.PUBLIC_HOST_URL + "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ githubUsername: profile.username, githubEmail: profile.emails[0].value }, function (err, user) {
+        mongoose.model('User').findOrCreate({ githubUsername: profile.username, githubEmail: profile.emails[0].value }, function (err, user) {
             return done(err, user);
         });
     }
@@ -37,5 +37,10 @@ router.get('/github/callback',
             res.redirect('/');
         }
     );
+
+router.post('/logout', function(req, res){
+    req.session.destroy();
+    res.status(200).send({"message": "Logout successful"});
+});
 
 module.exports = router;
