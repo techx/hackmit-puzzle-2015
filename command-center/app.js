@@ -6,13 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var puzzle = require('./routes/puzzle');
 var auth = require('./routes/auth');
 
 var app = express();
 
 var mongoose = require('mongoose');
-db = mongoose.connect(process.env.MONGOLAB_URI || "mongodb://localhost/command-center");
+db = mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/command-center");
 
 var expressSession = require('express-session');
 var passport = require('passport');
@@ -33,8 +33,12 @@ app.use(expressSession({secret: process.env.COMMAND_CENTER_SESSION_SECRET, resav
 app.use(passport.initialize());
 app.use(passport.session());
 
+require('./models/PuzzlePart');
+require('./models/Submission');
+require('./models/User');
+
 app.use('/', routes);
-app.use('/users', users);
+app.use('/puzzle', puzzle);
 app.use('/auth', auth);
 
 // catch 404 and forward to error handler

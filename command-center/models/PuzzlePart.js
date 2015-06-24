@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Submission = require('../Submission');
+var Submission = require('./Submission');
 
 // placeholders
 ANSWERS = [1,2,3,4,5,6];
@@ -10,8 +10,9 @@ EXPONENTIAL_BACKOFF = [0, 30, 120, 300, 600, 1800, 3600]
 var puzzlePartSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     number: { type: 'Number', required: true},
+    lastGuess: { type: 'String', default: "" },
     completionTimestamp: { type: 'Date' },
-    timeoutLevel: { type: 'Number', min: 0, max: 5},
+    timeoutLevel: { type: 'Number', min: 0, max: 5, default: 0 },
     lastTimeoutTimestamp: { type: 'Date' },
     guessesBeforeBackoff : { type: 'Number', min: 0, default: 5}
 });
@@ -56,21 +57,18 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
     Submission.create({ user: that.user.githubUsername, puzzleNumber: that.number, guess: guess, isCorrect: isCorrect, timestamp: Date.now() }, function(err){
         if (err) {
             callback(err);
+        } else if (isCorrect) {
+            that.completionTimestamp = Date.now;
+            that.save(callback);
         } else {
-            if (isCorrect) {
-                that.completionTimestamp = Date.now;
-                that.save(callback);
+            that.guessesBeforeBackoff -= 1;
+            if (that.guessesBeforeBackoff == 0) {
+                that.invokeTimeout(callback);
             } else {
-                that.guessesBeforeBackoff -= 1;
-                if (that.guessesBeforeBackoff == 0) {
-                    that.invokeTimeout(callback);
-                } else {
-                    that.save(callback);
-                }
+                that.save(callback);
             }
         }
     });    
 });
 
 module.exports = mongoose.model('PuzzlePart', puzzlePartSchema);
-

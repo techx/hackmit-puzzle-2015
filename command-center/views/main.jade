@@ -1,3 +1,14 @@
 extends layout
+block head
 block content
+    script
+        include ../public/js/main.js
     h1 What's up #{currentUser}
+    div#error
+    if puzzleParts.length == 0
+        form
+            button#start-button Start Puzzle!
+    else
+        for p in puzzleParts
+            mixin puzzlePart(p)
+    include puzzlePart

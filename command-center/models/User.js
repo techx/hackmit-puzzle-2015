@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var PuzzlePart = require('../PuzzlePart');
+var PuzzlePart = require('./PuzzlePart');
 
 var userSchema = new mongoose.Schema({
     githubUsername: { type: 'String', required: true },
@@ -33,4 +33,3 @@ userSchema.method('flag', function(callback){
 })
 
 module.exports = mongoose.model('User', userSchema);
-
