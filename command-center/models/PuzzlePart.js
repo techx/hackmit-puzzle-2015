@@ -82,10 +82,18 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
                         mongoose.model('PuzzlePart')
                             .createPart(that.user._id, that.number+1 , callback(err, true));
                     } else {
-                        that.user.completionTime = Date.now();
-                        that.user.save(function(err) {
-                            callback(null, true);
-                        });
+                        mongoose.model('User')
+                            .count({ completionTime : {$ne: null} }, 'completionTime'), function(err, count){
+                                if (err) {
+                                    callback(err)
+                                } else {
+                                    that.user.completionTime = Date.now();
+                                    that.user.isfirstFifty = count < 50;
+                                    that.user.save(function(err) {
+                                        callback(null, true);
+                                    });
+                                }
+                            }
                     }
                 }
             });

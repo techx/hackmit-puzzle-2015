@@ -7,7 +7,8 @@ var userSchema = new mongoose.Schema({
     isAdmin: { type: 'Boolean' },
     created: { type: 'Date', default: Date.now },
     isSuspicious: { type: 'Boolean', default: false },
-    completionTime: { type: 'Date' }
+    completionTime: { type: 'Date' },
+    isFirstFifty: { type: 'Boolean' }
 });
 
 userSchema.statics.findOrCreate = function(parameters, callback){

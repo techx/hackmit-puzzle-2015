@@ -28,7 +28,8 @@ UserController.getPuzzleStatus = function(req, res) {
                             puzzleParts[puzzleParts.length-1].timeout = convertToReadableFormat(timeout);
                             res.render('main', { puzzleParts: puzzleParts,
                                         currentUser: req.user.githubUsername,
-                                        done: req.user.completionTime });
+                                        done: req.user.completionTime,
+                                        firstFifty: user.isFirstFifty });
                         }
                     });
                 } else {
