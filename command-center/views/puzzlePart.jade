@@ -1,10 +1,13 @@
 mixin puzzlePart(p)
     div.puzzlepart
         h3 Puzzle #{p.number}
-        form
-            input(type="text", value=p.lastGuess)
-        if (p.completionTimestamp)
-            span ✓
+        if p.timeout != 0 && !p.completionTimestamp
+            p Please try again in #{p.timeout}.
         else
-            button Submit Answer
+            form
+                input(type="text", value=p.lastGuess)
+            if (p.completionTimestamp)
+                span ✓
+            else
+                button Submit Answer
 

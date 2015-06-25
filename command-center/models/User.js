@@ -23,7 +23,7 @@ userSchema.statics.findOrCreate = function(parameters, callback){
 }
 
 userSchema.method('getPuzzleParts', function(callback){
-    PuzzlePart.find({ 'user': this._id }, callback);
+    PuzzlePart.find({ 'user': this._id }).sort({ 'number': 1 }).exec(callback);
 });
 
 // flag user for being suspicious
