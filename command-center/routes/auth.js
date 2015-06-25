@@ -20,17 +20,16 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new GitHubStrategy({
         clientID: config.githubClientId,
         clientSecret: config.githubClientSecret,
-        callbackURL: config.publicHostUrl + "/auth/github/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-        mongoose.model('User')
-            .findOrCreate({ githubUsername: profile.username,
-                            githubEmail: profile.emails[0].value,
-                            isAdmin: isAdmin(profile.username) }
-            , function (err, user) {
-                return done(err, user);
-            });
-    }
+        callbackURL: config.publicHostUrl + "/auth/github/callback" }
+        , function(accessToken, refreshToken, profile, done) {
+            mongoose.model('User')
+                .findOrCreate({ githubUsername: profile.username,
+                                githubEmail: profile.emails[0].value,
+                                isAdmin: isAdmin(profile.username) }
+                , function (err, user) {
+                    return done(err, user);
+                });
+        }
 ));
 
 router.get('/github',
@@ -45,7 +44,7 @@ router.get('/github/callback',
 
 router.post('/logout', function(req, res){
     req.session.destroy();
-    res.status(200).send({"message": "Logout successful"});
+    res.status(200).send({ "message": "Logout successful" });
 });
 
 module.exports = router;

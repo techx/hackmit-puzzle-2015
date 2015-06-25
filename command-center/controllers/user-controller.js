@@ -42,6 +42,4 @@ UserController.getPuzzleStatus = function(req, res) {
     });
 }
 
-
-
 module.exports = UserController;
