@@ -10,7 +10,10 @@ block content
             button#start-button Start Puzzle!
     else
         if done
-            h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
+            if firstFifty
+                h2.congrats YAY YOU WERE ONE OF THE FIRST 50 TO FINISH THE PUZZLE! very solve much impress
+            else 
+                h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
         for p in puzzleParts
             mixin puzzlePart(p)
     include puzzlePart
