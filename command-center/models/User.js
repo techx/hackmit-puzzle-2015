@@ -32,6 +32,6 @@ userSchema.method('getPuzzleParts', function(callback){
 userSchema.method('flag', function(callback){
     this.isSuspicious = true;
     this.save(callback);
-})
+});
 
 module.exports = mongoose.model('User', userSchema);

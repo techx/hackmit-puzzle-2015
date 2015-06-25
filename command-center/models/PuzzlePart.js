@@ -7,14 +7,14 @@ EXPONENTIAL_BACKOFF = [0, 30, 120, 300, 600, 1800, 3600]
 
 var puzzlePartSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
-    number: { type: 'Number', required: true},
+    number: { type: 'Number', required: true },
     createdAt: { type: 'Date', default: Date.now },
     lastGuess: { type: 'String', default: "" },
     completionTimestamp: { type: 'Date' },
     timeoutLevel: { type: 'Number', min: 0, max: 5, default: 0 },
     lastTimeoutTimestamp: { type: 'Date' },
     url: { type: 'String', required: true }, //url to this part of the puzzle
-    guessesBeforeBackoff: { type: 'Number', min: 0, default: 5}
+    guessesBeforeBackoff: { type: 'Number', min: 0, default: 5 }
 });
 
 puzzlePartSchema.set('autoIndex', false);
@@ -84,26 +84,23 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
                 that.save(function(err) {
                     if (err) {
                         callback(err);
-                    } else {
-                        // if not the last part, create the next PuzzlePart document
-                        if (that.number != PUZZLE_URLS.length) {
+                    } else if (that.number != PUZZLE_URLS.length-1) {
                             mongoose.model('PuzzlePart')
                                 .createPart(that.user._id, that.number+1 , callback(err, true));
-                        } else {
-                            mongoose.model('User')
-                                .count({ completionTime : {$ne: null} }, 'completionTime')
-                                , function(err, count){
-                                    if (err) {
-                                        callback(err)
-                                    } else {
-                                        that.user.completionTime = Date.now();
-                                        that.user.isfirstFifty = count < 50;
-                                        that.user.save(function(err) {
-                                            callback(null, true);
-                                        });
-                                    }
+                    } else {
+                        mongoose.model('User')
+                            .count({ completionTime : { $ne: null } }, 'completionTime')
+                            , function(err, count){
+                                if (err) {
+                                    callback(err)
+                                } else {
+                                    that.user.completionTime = Date.now();
+                                    that.user.isfirstFifty = count < 50;
+                                    that.user.save(function(err) {
+                                        callback(null, true);
+                                    });
                                 }
-                        }
+                            }
                     }
                 });
             } else {
