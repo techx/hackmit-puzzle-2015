@@ -12,4 +12,6 @@ var isAuthenticated = function(req, res, next){
 
 router.post('/', isAuthenticated, puzzleController.createNew);
 
+router.post('/guess', isAuthenticated, puzzleController.makeGuess);
+
 module.exports = router;
