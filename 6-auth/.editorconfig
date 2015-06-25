@@ -1,0 +1,5 @@
+[*.{js,json}]
+indent_size = 2
+
+[*.jade]
+indent_size = 2
