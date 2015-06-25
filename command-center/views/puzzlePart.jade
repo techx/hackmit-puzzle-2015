@@ -6,7 +6,7 @@ mixin puzzlePart(p)
             p Please try again in #{p.timeout}.
         else
             form
-                input(type="hidden", value=p.number, name="puzzleNumber")
+                input(type="hidden", value=p.number + 1, name="puzzleNumber")
                 input(type="text", value=p.lastGuess, name="guess")
             if (p.completionTimestamp)
                 span.correct ✓
