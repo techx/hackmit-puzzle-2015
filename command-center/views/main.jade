@@ -9,6 +9,8 @@ block content
         form
             button#start-button Start Puzzle!
     else
+        if done
+            h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
         for p in puzzleParts
             mixin puzzlePart(p)
     include puzzlePart
