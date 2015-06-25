@@ -62,6 +62,9 @@ puzzlePartSchema.method('invokeTimeout', function(callback){
 });
 
 puzzlePartSchema.method('makeGuess', function(guess, callback){
+    if (this.completionTimestamp) {
+        callback(err); // don't let them enter more guesses for completed puzzles
+    }
     var that = this;
     var isCorrect = guess.trim() == ANSWERS[this.number];
     // log guesses
@@ -77,11 +80,11 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
                     // if not the last part, create the next PuzzlePart document
                     if (that.number != PUZZLE_URLS.length) {
                         mongoose.model('PuzzlePart')
-                            .create({ user: that.user._id, puzzleNumber: that.number + 1, url: PUZZLE_URLS[that.puzzleNumber]}, callback(err, {'done': false}));
+                            .create({ user: that.user._id, puzzleNumber: that.number + 1, url: PUZZLE_URLS[that.puzzleNumber]}, callback(err, true));
                     } else {
                         that.user.completionTime = Date.now();
                         that.user.save(function(err) {
-                            callback(null, {'done': true});
+                            callback(null, true);
                         });
                     }
                 }
@@ -91,7 +94,7 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
             if (that.guessesBeforeBackoff == 0) {
                 that.invokeTimeout(callback);
             } else {
-                that.save(callback(err, {}));
+                that.save(callback(err, false));
             }
         }
     });    
