@@ -34,10 +34,12 @@ puzzlePartSchema.method('getTimeout', function(callback){
     if (this.timeoutLevel == 0) {
         callback(null, 0);
     } else {
-        var timeLeft = EXPONENTIAL_BACKOFF[this.timeoutLevel] - (Date.now() - this.lastTimeoutTimestamp)/1000;
+        var timeLeft = 
+            EXPONENTIAL_BACKOFF[this.timeoutLevel] - (Date.now() - this.lastTimeoutTimestamp)/1000;
         if (timeLeft < 0) {
             //reset the timeout after they wait 2x the timeout without causing another one
-            var shouldResetTimeout = (Date.now() - this.lastTimeoutTimestamp) > 2000 * EXPONENTIAL_BACKOFF[this.timeoutLevel]; 
+            var shouldResetTimeout = 
+                (Date.now() - this.lastTimeoutTimestamp) > 2000 * EXPONENTIAL_BACKOFF[this.timeoutLevel]; 
             if (shouldResetTimeout) {
                 this.resetTimeout(function(err){
                     callback(err, 0);
@@ -68,44 +70,51 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
     var that = this;
     var isCorrect = Puzzles[this.number].verifierFunction(guess.trim());
     // log guesses
-    Submission.create({ user: that.user.githubUsername, puzzleNumber: that.number, guess: guess, isCorrect: isCorrect, timestamp: Date.now() }, function(err){
-        if (err) {
-            callback(err);
-        } else if (isCorrect) {
-            that.completionTimestamp = Date.now();
-            that.save(function(err) {
-                if (err) {
-                    callback(err);
-                } else {
-                    // if not the last part, create the next PuzzlePart document
-                    if (that.number != PUZZLE_URLS.length) {
-                        mongoose.model('PuzzlePart')
-                            .createPart(that.user._id, that.number+1 , callback(err, true));
+    Submission
+        .create({ user: that.user.githubUsername, 
+                  puzzleNumber: that.number, 
+                  guess: guess, 
+                  isCorrect: isCorrect, 
+                  timestamp: Date.now() }
+        , function(err){
+            if (err) {
+                callback(err);
+            } else if (isCorrect) {
+                that.completionTimestamp = Date.now();
+                that.save(function(err) {
+                    if (err) {
+                        callback(err);
                     } else {
-                        mongoose.model('User')
-                            .count({ completionTime : {$ne: null} }, 'completionTime'), function(err, count){
-                                if (err) {
-                                    callback(err)
-                                } else {
-                                    that.user.completionTime = Date.now();
-                                    that.user.isfirstFifty = count < 50;
-                                    that.user.save(function(err) {
-                                        callback(null, true);
-                                    });
+                        // if not the last part, create the next PuzzlePart document
+                        if (that.number != PUZZLE_URLS.length) {
+                            mongoose.model('PuzzlePart')
+                                .createPart(that.user._id, that.number+1 , callback(err, true));
+                        } else {
+                            mongoose.model('User')
+                                .count({ completionTime : {$ne: null} }, 'completionTime')
+                                , function(err, count){
+                                    if (err) {
+                                        callback(err)
+                                    } else {
+                                        that.user.completionTime = Date.now();
+                                        that.user.isfirstFifty = count < 50;
+                                        that.user.save(function(err) {
+                                            callback(null, true);
+                                        });
+                                    }
                                 }
-                            }
+                        }
                     }
-                }
-            });
-        } else {
-            that.guessesBeforeBackoff -= 1;
-            if (that.guessesBeforeBackoff == 0) {
-                that.invokeTimeout(callback);
+                });
             } else {
-                that.save(callback(err, false));
+                that.guessesBeforeBackoff -= 1;
+                if (that.guessesBeforeBackoff == 0) {
+                    that.invokeTimeout(callback);
+                } else {
+                    that.save(callback(err, false));
+                }
             }
-        }
-    });    
+        });    
 });
 
 module.exports = mongoose.model('PuzzlePart', puzzlePartSchema);

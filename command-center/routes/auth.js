@@ -24,7 +24,10 @@ passport.use(new GitHubStrategy({
     },
     function(accessToken, refreshToken, profile, done) {
         mongoose.model('User')
-            .findOrCreate({ githubUsername: profile.username, githubEmail: profile.emails[0].value, isAdmin: isAdmin(profile.username)}, function (err, user) {
+            .findOrCreate({ githubUsername: profile.username,
+                            githubEmail: profile.emails[0].value,
+                            isAdmin: isAdmin(profile.username) }
+            , function (err, user) {
                 return done(err, user);
             });
     }
