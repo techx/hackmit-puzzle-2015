@@ -1,12 +1,12 @@
 mixin puzzlePart(p)
     div.puzzlepart
         a(href=p.url)
-            h3 Puzzle #{p.number}
+            h3 Puzzle #{p.number+1}
         if p.timeout != 0 && !p.completionTimestamp
             p Please try again in #{p.timeout}.
         else
             form
-                input(type="hidden", value=p.number + 1, name="puzzleNumber")
+                input(type="hidden", value=p.number, name="puzzleNumber")
                 input(type="text", value=p.lastGuess, name="guess")
             if (p.completionTimestamp)
                 span.correct ✓

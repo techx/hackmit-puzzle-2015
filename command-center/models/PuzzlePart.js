@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Submission = require('./Submission');
 var Puzzles = require('../config').puzzles;
+
 // seconds
 EXPONENTIAL_BACKOFF = [0, 30, 120, 300, 600, 1800, 3600]
 
@@ -19,7 +20,7 @@ var puzzlePartSchema = new mongoose.Schema({
 puzzlePartSchema.set('autoIndex', false);
 
 puzzlePartSchema.statics.createPart = function(userId, number, callback) {
-    this.create({ user: userId, puzzleNumber: number, url: puzzles[number].url }, callback);
+    this.create({ user: userId, number: number, url: Puzzles[number].url }, callback);
 }
 
 puzzlePartSchema.method('resetTimeout', function(callback){

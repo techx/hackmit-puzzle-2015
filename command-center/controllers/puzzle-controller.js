@@ -9,7 +9,6 @@ PuzzleController.createNew = function(req, res){
         } else if (count != 0){
             res.status(200).send({})
         } else {
-            // TODO: replace with actual first url
             mongoose.model('PuzzlePart').createPart(req.user._id, 0, function(err, puzzlePart){
                 if (err){
                     respondWithError(err, res);
