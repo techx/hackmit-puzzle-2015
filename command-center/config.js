@@ -12,6 +12,7 @@ var getOrDie = function(varName) {
 function Puzzle(url, verifierFunction) {
     this.url = url;
     this.verifierFunction = verifierFunction;
+    return this;
 }
 
 config.githubClientId = getOrDie("GITHUB_CLIENT_ID");
