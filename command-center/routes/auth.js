@@ -5,6 +5,10 @@ var passport = require('passport');
 var GitHubStrategy = require('passport-github').Strategy;
 var config = require('../config');
 
+var isAdmin = function(githubUsername) {
+    return config.admins.indexOf(githubUsername) != -1;
+}
+
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -19,9 +23,10 @@ passport.use(new GitHubStrategy({
         callbackURL: config.publicHostUrl + "/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-        mongoose.model('User').findOrCreate({ githubUsername: profile.username, githubEmail: profile.emails[0].value }, function (err, user) {
-            return done(err, user);
-        });
+        mongoose.model('User')
+            .findOrCreate({ githubUsername: profile.username, githubEmail: profile.emails[0].value, isAdmin: isAdmin(profile.username)}, function (err, user) {
+                return done(err, user);
+            });
     }
 ));
 

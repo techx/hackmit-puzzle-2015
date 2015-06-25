@@ -4,6 +4,7 @@ var PuzzlePart = require('./PuzzlePart');
 var userSchema = new mongoose.Schema({
     githubUsername: { type: 'String', required: true },
     githubEmail: { type: 'String' },
+    isAdmin: { type: 'Boolean' },
     created: { type: 'Date', default: Date.now },
     isSuspicious: { type: 'Boolean', default: false },
     completionTime: { type: 'Date' }
