@@ -32,7 +32,9 @@ PuzzleController.makeGuess = function(req, res){
                 if (err){
                     respondWithError(err, res);
                 } else if (timeout != 0) {
-                        res.status(400).send({"error": "Please wait "+ timeout + "before guessing again."})
+                    res.status(400).send({"error": "Please wait "+ timeout + "before guessing again."})
+                } else if (puzzlePart.completionTimestamp) {
+                    res.status(400).send({"error": "You already finished this part of the puzzle."});
                 } else {
                     puzzlePart.makeGuess(req.query.guess, function(err, correct){
                         if (err){
