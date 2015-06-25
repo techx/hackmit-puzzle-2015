@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var UserController = {}
-var helpers = require('../utils/helpers');
+var respondWithError = require('../utils/helpers').respondWithError;
 
 var convertToReadableFormat = function(timeout) {
     if (timeout == 0) return 0;
@@ -13,17 +13,17 @@ var convertToReadableFormat = function(timeout) {
 UserController.getPuzzleStatus = function(req, res) {
     mongoose.model('User').findById(req.user._id, function(err, user){
         if (err) {
-            helpers.respondWithError(err, res);
+            respondWithError(err, res);
         } else if (!user) {
             res.status(404).send({'error': 'This user does not exist.'});
         } else {
             user.getPuzzleParts(function(err, puzzleParts){
                 if (err) {
-                    helpers.respondWithError(err, res);
+                    respondWithError(err, res);
                 } else if (puzzleParts.length != 0){
                     puzzleParts[puzzleParts.length-1].getTimeout(function(err, timeout){
                         if (err) {
-                            helpers.respondWithError(err, res);
+                            respondWithError(err, res);
                         } else {
                             puzzleParts[puzzleParts.length-1].timeout = convertToReadableFormat(timeout);
                             res.render('main', { puzzleParts: puzzleParts,

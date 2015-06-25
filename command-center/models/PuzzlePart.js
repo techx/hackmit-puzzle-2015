@@ -1,18 +1,13 @@
 var mongoose = require('mongoose');
 var Submission = require('./Submission');
-
-// placeholders
-ANSWERS = [1,2,3,4,5,6];
-
-//placeholders
-PUZZLE_URLS = ["www.google.com", "www.google.com","www.google.com","www.google.com","www.google.com","www.google.com"];
-
+var Puzzles = require('../config').puzzles;
 // seconds
 EXPONENTIAL_BACKOFF = [0, 30, 120, 300, 600, 1800, 3600]
 
 var puzzlePartSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     number: { type: 'Number', required: true},
+    createdAt: { type: 'Date', default: Date.now },
     lastGuess: { type: 'String', default: "" },
     completionTimestamp: { type: 'Date' },
     timeoutLevel: { type: 'Number', min: 0, max: 5, default: 0 },
@@ -22,6 +17,10 @@ var puzzlePartSchema = new mongoose.Schema({
 });
 
 puzzlePartSchema.set('autoIndex', false);
+
+puzzlePartSchema.statics.createPart = function(userId, number, callback) {
+    this.create({ user: userId, puzzleNumber: number, url: puzzles[number].url }, callback);
+}
 
 puzzlePartSchema.method('resetTimeout', function(callback){
     this.exponentialBackoff = false;
@@ -66,7 +65,7 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
         callback(err); // don't let them enter more guesses for completed puzzles
     }
     var that = this;
-    var isCorrect = guess.trim() == ANSWERS[this.number];
+    var isCorrect = Puzzles[this.number].verifierFunction(guess.trim());
     // log guesses
     Submission.create({ user: that.user.githubUsername, puzzleNumber: that.number, guess: guess, isCorrect: isCorrect, timestamp: Date.now() }, function(err){
         if (err) {
@@ -80,7 +79,7 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
                     // if not the last part, create the next PuzzlePart document
                     if (that.number != PUZZLE_URLS.length) {
                         mongoose.model('PuzzlePart')
-                            .create({ user: that.user._id, puzzleNumber: that.number + 1, url: PUZZLE_URLS[that.puzzleNumber]}, callback(err, true));
+                            .createPart(that.user._id, that.number+1 , callback(err, true));
                     } else {
                         that.user.completionTime = Date.now();
                         that.user.save(function(err) {
