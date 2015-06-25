@@ -1,6 +1,7 @@
 mixin puzzlePart(p)
     div.puzzlepart
-        h3 Puzzle #{p.number}
+        a(href=p.url)
+            h3 Puzzle #{p.number}
         if p.timeout != 0 && !p.completionTimestamp
             p Please try again in #{p.timeout}.
         else
