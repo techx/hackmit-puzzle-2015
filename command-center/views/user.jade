@@ -1,0 +1,78 @@
+extends layout
+block head
+    style.
+        #puzzle, #submission-logs {
+            margin-top: 50px;
+        }
+        th {
+            text-align: left;
+        }
+
+        td, th {
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+block content
+    div#user-summary
+        h2 User Information
+        p 
+            strong Github Username: 
+            span= user.githubUsername
+        p 
+            strong Github Email: 
+            span= user.githubEmail
+        p 
+            strong Creation Timestamp: 
+            span= user.created
+        p
+            strong Suspicious: 
+            span= user.isSuspicious
+        p 
+            strong First Fifty?: 
+            span= user.isFirstFifty
+        p 
+            strong Puzzle Completion Time: 
+            span= user.completionTime
+
+        button Flag User as Suspicious
+
+    div#puzzle
+        h2 Puzzle Information
+        table
+            tr
+                th Number
+                th Start
+                th Last Guess
+                th Completion
+                th Last Timeout
+                th Timeout Level
+            for part in puzzleParts
+                tr
+                    td= part.number
+                    td= part.createdAt
+                    td= part.lastGuess
+                    td= part.completionTimestamp
+                    td= part.lastTimeoutTimestamp
+                    td= part.timeoutLevel
+
+    div#submission-logs
+        h2 User Action Logs
+        table
+            tr
+                th Puzzle
+                th Guess
+                th Correct
+                th Timestamp
+            for log in logs
+                tr
+                    td= log.puzzleNumber
+                    td= log.guess
+                    td= log.isCorrect
+                    td= log.timestamp
