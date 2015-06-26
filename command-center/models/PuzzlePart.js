@@ -63,7 +63,7 @@ puzzlePartSchema.method('invokeTimeout', function(callback){
     this.save(callback);
 });
 
-puzzlePartSchema.method('makeGuess', function(guess, callback){
+puzzlePartSchema.method('makeGuess', function(username, guess, callback){
     if (this.completionTimestamp) {
         callback(err); // don't let them enter more guesses for completed puzzles
     }
@@ -71,7 +71,7 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
     var isCorrect = Puzzles[this.number].verifierFunction(guess.trim());
     // log guesses
     Submission
-        .create({ user: that.user.githubUsername, 
+        .create({ user: username, 
                   puzzleNumber: that.number, 
                   guess: guess, 
                   isCorrect: isCorrect, 
@@ -81,12 +81,13 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
                 callback(err);
             } else if (isCorrect) {
                 that.completionTimestamp = Date.now();
+                that.lastGuess = guess;
                 that.save(function(err) {
                     if (err) {
                         callback(err);
-                    } else if (that.number != PUZZLE_URLS.length-1) {
+                    } else if (that.number != Puzzles.length-1) {
                             mongoose.model('PuzzlePart')
-                                .createPart(that.user._id, that.number+1 , callback(err, true));
+                                .createPart(that.user, that.number+1 , callback(err, true));
                     } else {
                         mongoose.model('User')
                             .count({ completionTime : { $ne: null } }, 'completionTime')
@@ -94,17 +95,21 @@ puzzlePartSchema.method('makeGuess', function(guess, callback){
                                 if (err) {
                                     callback(err)
                                 } else {
-                                    that.user.completionTime = Date.now();
-                                    that.user.isfirstFifty = count < 50;
-                                    that.user.save(function(err) {
-                                        callback(null, true);
-                                    });
+                                    mongoose.model('User')
+                                        .findById(that.user, function(err, user){
+                                            user.completionTime = Date.now();
+                                            user.isfirstFifty = count < 50;
+                                            user.save(function(err) {
+                                                callback(null, true);
+                                            });
+                                        });
                                 }
                             }
                     }
                 });
             } else {
                 that.guessesBeforeBackoff -= 1;
+                that.lastGuess = guess;
                 if (that.guessesBeforeBackoff == 0) {
                     that.invokeTimeout(callback);
                 } else {

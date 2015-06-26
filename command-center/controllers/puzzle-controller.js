@@ -36,7 +36,7 @@ PuzzleController.makeGuess = function(req, res){
                     } else if (puzzlePart.completionTimestamp) {
                         res.status(400).send({"error": "You already finished this part of the puzzle."});
                     } else {
-                        puzzlePart.makeGuess(req.query.guess, function(err, correct){
+                        puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct){
                             if (err){
                                 respondWithError(err, res);
                             } else {

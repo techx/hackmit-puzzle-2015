@@ -1,14 +1,16 @@
 extends layout
 block head
 block content
-    script
-        include ./js/main.js
     h1 What's up #{currentUser}
     div#error
     if puzzleParts.length == 0
+        script
+            include ./js/create-puzzle.js
         form
             button#start-button Start Puzzle!
     else
+        script
+            include ./js/make-guess.js
         if done
             if firstFifty
                 h2.congrats YAY YOU WERE ONE OF THE FIRST 50 TO FINISH THE PUZZLE! very solve much impress
