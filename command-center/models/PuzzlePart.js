@@ -3,7 +3,7 @@ var Submission = require('./Submission');
 var Puzzles = require('../config').puzzles;
 
 // seconds
-EXPONENTIAL_BACKOFF = [0, 30, 120, 300, 600, 1800, 3600]
+BACKOFF_INTERVALS = [0, 30, 120, 300, 600, 1800, 3600]
 
 var puzzlePartSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
@@ -24,7 +24,6 @@ puzzlePartSchema.statics.createPart = function(userId, number, callback) {
 }
 
 puzzlePartSchema.method('resetTimeout', function(callback){
-    this.exponentialBackoff = false;
     this.guessesBeforeBackoff = 5;
     this.timeoutLevel = 0;
     this.save(callback);
@@ -35,11 +34,11 @@ puzzlePartSchema.method('getTimeout', function(callback){
         callback(null, 0);
     } else {
         var timeLeft = 
-            EXPONENTIAL_BACKOFF[this.timeoutLevel] - (Date.now() - this.lastTimeoutTimestamp)/1000;
+            BACKOFF_INTERVALS[this.timeoutLevel] - (Date.now() - this.lastTimeoutTimestamp)/1000;
         if (timeLeft < 0) {
             //reset the timeout after they wait 2x the timeout without causing another one
             var shouldResetTimeout = 
-                (Date.now() - this.lastTimeoutTimestamp) > 2000 * EXPONENTIAL_BACKOFF[this.timeoutLevel]; 
+                (Date.now() - this.lastTimeoutTimestamp) > 2000 * BACKOFF_INTERVALS[this.timeoutLevel]; 
             if (shouldResetTimeout) {
                 this.resetTimeout(function(err){
                     callback(err, 0);
