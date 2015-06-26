@@ -4,7 +4,7 @@ var respondWithError = require('../utils/helpers').respondWithError;
 
 var convertToReadableFormat = function(timeout) {
     if (timeout == 0) return 0;
-    seconds = timeout % 60;
+    seconds = parseInt(timeout % 60);
     minutes = parseInt(timeout / 60);
     time = minutes == 0 ? String(seconds) + " seconds" : String(minutes) + " minutes and " + String(seconds) + " seconds";
     return time;
