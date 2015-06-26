@@ -3,6 +3,7 @@ mixin puzzlePart(p)
         a(href=p.url)
             h3 Puzzle #{p.number+1}
         if p.timeout != 0 && !p.completionTimestamp
+            img(src="/assets/sad_doge.gif").sad-doge
             p Please try again in #{p.timeout}.
         else
             if (p.completionTimestamp)
