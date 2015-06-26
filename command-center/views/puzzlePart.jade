@@ -5,11 +5,12 @@ mixin puzzlePart(p)
         if p.timeout != 0 && !p.completionTimestamp
             p Please try again in #{p.timeout}.
         else
-            form
-                input(type="hidden", value=p.number, name="puzzleNumber")
-                input(type="text", value=p.lastGuess, name="guess")
             if (p.completionTimestamp)
-                span.correct ✓
+                span.correct-guess= p.lastGuess
+                span.correct  ✓
             else
-                button.submit-answer Submit Answer
+                form
+                    input(type="hidden", value=p.number, name="puzzleNumber")
+                    input(type="text", value=p.lastGuess, name="guess")
+                button#submit-answer Submit Answer
 

@@ -1,7 +1,5 @@
 window.onload = function(){
-    var startButton = document.getElementById("start-button");
-
-    startButton.onclick = function(event){
+    document.getElementById("start-button").onclick = function(event){
         event.preventDefault();
         createNewPuzzle();
     }
