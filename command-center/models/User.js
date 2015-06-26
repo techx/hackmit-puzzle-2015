@@ -29,7 +29,7 @@ userSchema.method('getPuzzleParts', function(callback){
 });
 
 userSchema.method('getSubmissionLogs', function(callback){
-    mongoose.model('Submission').find({ 'user': this.githubUsername }).sort({ 'timestamp': 1}).exec(callback);
+    mongoose.model('Submission').find({ 'user': this.githubUsername }).sort({ 'timestamp': 1 }).exec(callback);
 });
 
 // flag user for being suspicious
