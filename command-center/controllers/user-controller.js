@@ -27,17 +27,65 @@ UserController.getPuzzleStatus = function(req, res) {
                         } else {
                             puzzleParts[puzzleParts.length-1].timeout = convertToReadableFormat(timeout);
                             res.render('main', { puzzleParts: puzzleParts,
-                                        currentUser: req.user.githubUsername,
-                                        done: req.user.completionTime,
-                                        firstFifty: user.isFirstFifty });
+                                                 currentUser: req.user.githubUsername,
+                                                 done: req.user.completionTime,
+                                                 firstFifty: user.isFirstFifty });
                         }
                     });
                 } else {
                     res.render('main', { puzzleParts: [],
-                                        currentUser: req.user.githubUsername,
-                                        done: false });
+                                         currentUser: req.user.githubUsername,
+                                         done: false });
                 }
             });
+        }
+    });
+}
+
+//////////////////////////////////////////
+// Below here only accessible by admins //
+//////////////////////////////////////////
+
+UserController.getUserInfo = function(req, res) {
+    mongoose.model('User').findOne({ 'githubUsername': req.params.githubUsername}, function(err, user){
+        if (err){
+            res.status(500).send(err);
+        } else if (!user){
+            res.status(404).send({"error": "User not found."})
+        } else {
+            user.getPuzzleParts(function(err, puzzleParts){
+                if (err){
+                    res.status(500).send(err);
+                } else {
+                    user.getSubmissionLogs(function(err, logs){
+                        if (err){
+                            res.status(500).send(err);
+                        } else {
+                            res.status(200).render("user", { user: user, 
+                                                             puzzleParts: puzzleParts,
+                                                             logs: logs });
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+UserController.flagUser = function(req, res) {
+    mongoose.model('User').findOne({ 'githubUsername': req.params.githubUsername }, function(err, user){
+        if (err){
+            res.status(500).send(err);
+        } else if (!user){
+            res.status(404).send({"error": "User not found."})
+        } else {
+            user.flag(function(err){
+                if (err){
+                    res.status(500).send(err);
+                } else {
+                    res.status(200).send({"message": "Successfully flagged user."});
+                }
+            })
         }
     });
 }
