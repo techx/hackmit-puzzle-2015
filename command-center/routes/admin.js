@@ -6,13 +6,17 @@ var isAdmin = function(req, res, next){
     if (req.isAuthenticated() && req.user.isAdmin){
         return next();
     } else {
-        res.redirect('/');
+        res.render('404');
     }
 }
 
-/* Get a user & his/her info */
-router.get('/user/:githubUsername', isAdmin, userController.getUserInfo);
+/* Get list of users sorted by completion time */
+router.get('/users', isAdmin, userController.getAllUsers);
 
-router.post('/user/:githubUsername', isAdmin, userController.flagUser);
+/* Get a user & his/her info */
+router.get('/users/:githubUsername', isAdmin, userController.getUserInfo);
+
+/* Flag a user for being sketchy */
+router.post('/users/:githubUsername', isAdmin, userController.flagUser);
 
 module.exports = router;

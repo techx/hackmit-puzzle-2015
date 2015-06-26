@@ -1,0 +1,40 @@
+extends layout
+block head
+    style.
+        th {
+            text-align: left;
+        }
+
+        td, th {
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            counter-reset: rowNumber;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        table tr:not(:first-child) {
+            counter-increment: rowNumber;
+        }
+
+        table tr td:first-child::before {
+            content: counter(rowNumber);
+            min-width: 1em;
+            margin-right: 0.5em;
+        }
+block content
+    h2 All users
+    table
+        tr
+            th Username
+            th Completion Time
+        for user in users
+            tr
+                td
+                    a(href="/admin/users/#{user.githubUsername}")= user.githubUsername
+                td= user.completionTime
