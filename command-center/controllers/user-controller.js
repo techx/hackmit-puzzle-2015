@@ -15,7 +15,7 @@ UserController.getPuzzleStatus = function(req, res) {
         if (err) {
             respondWithError(err, res);
         } else if (!user) {
-            res.status(404).send({'error': 'This user does not exist.'});
+            res.status(404).send({ "error": "This user does not exist." });
         } else {
             user.getPuzzleParts(function(err, puzzleParts){
                 if (err) {
@@ -47,11 +47,11 @@ UserController.getPuzzleStatus = function(req, res) {
 //////////////////////////////////////////
 
 UserController.getUserInfo = function(req, res) {
-    mongoose.model('User').findOne({ 'githubUsername': req.params.githubUsername}, function(err, user){
+    mongoose.model('User').findOne({ "githubUsername": req.params.githubUsername}, function(err, user){
         if (err){
             res.status(500).send(err);
         } else if (!user){
-            res.status(404).send({"error": "User not found."})
+            res.status(404).send({ "error": "User not found." });
         } else {
             user.getPuzzleParts(function(err, puzzleParts){
                 if (err){
@@ -73,17 +73,17 @@ UserController.getUserInfo = function(req, res) {
 }
 
 UserController.flagUser = function(req, res) {
-    mongoose.model('User').findOne({ 'githubUsername': req.params.githubUsername }, function(err, user){
+    mongoose.model('User').findOne({ "githubUsername": req.params.githubUsername }, function(err, user){
         if (err){
             res.status(500).send(err);
         } else if (!user){
-            res.status(404).send({"error": "User not found."})
+            res.status(404).send({ "error": "User not found." });
         } else {
             user.flag(function(err){
                 if (err){
                     res.status(500).send(err);
                 } else {
-                    res.status(200).send({"message": "Successfully flagged user."});
+                    res.status(200).send({ "message": "Successfully flagged user." });
                 }
             })
         }
@@ -91,7 +91,7 @@ UserController.flagUser = function(req, res) {
 }
 
 UserController.getAllUsers = function(req, res) {
-    mongoose.model('User').find({}, 'githubUsername completionTime').sort({ 'completionTime': 1}).exec(function(err, users) {
+    mongoose.model('User').find({}, "githubUsername completionTime").sort({ "completionTime": 1 }).exec(function(err, users) {
         if (err) {
             res.status(500).send(err);
         } else {
