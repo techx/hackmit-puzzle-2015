@@ -88,7 +88,6 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                         mongoose.model('PuzzlePart')
                             .createPart(that.user, that.number+1 , callback(err, true));
                     } else {
-                        console.log('got here');
                         mongoose.model('User')
                             .count({ completionTime : { $ne: null } }
                             , function(err, count){
@@ -101,7 +100,7 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                                                 callback(err);
                                             } else {
                                                 user.completionTime = Date.now();
-                                                user.isfirstFifty = count < 50;
+                                                user.isFirstFifty = count < 50;
                                                 user.save(function(err) {
                                                     callback(err, true);
                                                 });

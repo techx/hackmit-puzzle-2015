@@ -7,7 +7,7 @@ var userSchema = new mongoose.Schema({
     created: { type: 'Date', default: Date.now },
     isSuspicious: { type: 'Boolean', default: false },
     completionTime: { type: 'Date' },
-    isFirstFifty: { type: 'Boolean' }
+    isFirstFifty: { type: 'Boolean', default: false }
 });
 
 userSchema.set('autoIndex', false);
