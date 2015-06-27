@@ -4,6 +4,11 @@ window.onload = function(){
         makeGuess();
     }
 
+    document.forms[0].onsubmit = function(event){
+        event.preventDefault();
+        makeGuess();
+    }
+
     var makeGuess = function(){
         var xmlhttp = new XMLHttpRequest();
         var puzzleNumber = document.forms[0].puzzleNumber.value;

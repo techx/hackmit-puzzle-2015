@@ -85,25 +85,30 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                     if (err) {
                         callback(err);
                     } else if (that.number != Puzzles.length-1) {
-                            mongoose.model('PuzzlePart')
-                                .createPart(that.user, that.number+1 , callback(err, true));
+                        mongoose.model('PuzzlePart')
+                            .createPart(that.user, that.number+1 , callback(err, true));
                     } else {
+                        console.log('got here');
                         mongoose.model('User')
-                            .count({ completionTime : { $ne: null } }, 'completionTime')
+                            .count({ completionTime : { $ne: null } }
                             , function(err, count){
                                 if (err) {
-                                    callback(err)
+                                    callback(err);
                                 } else {
                                     mongoose.model('User')
                                         .findById(that.user, function(err, user){
-                                            user.completionTime = Date.now();
-                                            user.isfirstFifty = count < 50;
-                                            user.save(function(err) {
-                                                callback(null, true);
-                                            });
+                                            if (err) {
+                                                callback(err);
+                                            } else {
+                                                user.completionTime = Date.now();
+                                                user.isfirstFifty = count < 50;
+                                                user.save(function(err) {
+                                                    callback(err, true);
+                                                });
+                                            }
                                         });
                                 }
-                            }
+                            });
                     }
                 });
             } else {
