@@ -27,14 +27,14 @@ UserController.getPuzzleStatus = function(req, res) {
                         } else {
                             puzzleParts[puzzleParts.length-1].timeout = convertToReadableFormat(timeout);
                             res.render('main', { puzzleParts: puzzleParts,
-                                                 currentUser: req.user.githubUsername,
-                                                 done: req.user.completionTime,
+                                                 currentUser: user.githubUsername,
+                                                 done: user.completionTime,
                                                  firstFifty: user.isFirstFifty });
                         }
                     });
                 } else {
                     res.render('main', { puzzleParts: [],
-                                         currentUser: req.user.githubUsername,
+                                         currentUser: user.githubUsername,
                                          done: false });
                 }
             });
