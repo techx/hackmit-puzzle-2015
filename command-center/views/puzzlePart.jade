@@ -13,5 +13,6 @@ mixin puzzlePart(p)
                 form
                     input(type="hidden", value=p.number, name="puzzleNumber")
                     input(type="text", value=p.lastGuess, name="guess")
+                div#feedback
                 button#submit-answer Submit Answer
 
