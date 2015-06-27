@@ -1,6 +1,7 @@
 from PIL import Image
 import requests
 from StringIO import StringIO
+import hashlib
 
 BLACK_PIXEL = (0,0,0)
 WHITE_PIXEL = (255,255,255)
@@ -100,6 +101,25 @@ def binToQr(bin, width, qrSize, imageName):
     im.save(imageName+'.png')
     print "QR code saved to: " + imageName + ".png"
 
+def newPuzzle(name):
+    '''
+    Prepares a new puzzle.
+    @param name: Name or id of the person attempting puzzle
+    @returns clue: Clue to give to the person
+    '''
+    SECRET = "d09e4l143"
+    hexCode = hashlib.sha256(name + SECRET).hexdigest()[0:10]
+    binQr = qrToBin(hexCode)["binQr"]
+    prettyPrint(binQr)
+    result = [item for sublist in binQr for item in sublist]
+    binary = "".join(str(x) for x in result)
+
+    clue = int(binary,2) #This is the given clue
+    print clue
+    print (hexCode) #This is the answer!
+
+    return clue
+
 def prettyPrint(data):
     '''
     Prints a binary qr nicely to the console
@@ -118,4 +138,5 @@ def test(data, imageName):
     prettyPrint(binQr)
     binToQr(binQr,result["width"],result["qrSize"], imageName )
 
-test("Testing QR code", "generated-qr")
+#test("Testing QR code", "generated-qr")
+newPuzzle("Fernando Trujano")
