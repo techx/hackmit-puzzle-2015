@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+# you need z3 to be able to run this
+# https://github.com/Z3Prover/z3
+
 import z3
 
 DEBUG = False
@@ -10,8 +15,8 @@ def cksum(bv):
     a = z3.BitVecVal(0, 16)
     b = z3.BitVecVal(0, 16)
     for byte in bv:
-        a = (a + z3.ZeroExt(8, byte)) % 255
-        b = (b + a) % 255
+        a = (a + z3.ZeroExt(8, byte)) % 0xff
+        b = (b + a) % 0xff
 
     return (b << 8) | a
 
@@ -24,7 +29,7 @@ def alphabetic(bv):
     return reduce(lambda a, b: z3.And(a, b), is_alpha)
 
 def add_constraints(s, bv):
-    if len(bv) < 10:
+    if len(bv) < 10 or len(bv) % 2 != 0:
         return False
 
     s.add(alphabetic(bv))
@@ -35,9 +40,11 @@ def add_constraints(s, bv):
 
     left = bv[:len(bv)/2]
     right = bv[len(bv)/2:]
+    even = bv[::2]
 
     s.add(cksum(left) == upper)
     s.add(cksum(right) == lower)
+    s.add(cksum(even) == z3.BitVecVal(0x0000, 16))
 
     return True
 
