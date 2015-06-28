@@ -6,6 +6,9 @@ The only thing you need to remember to do is to set the `SECRET_CODE`
 environment variable to `amaze algorithm`. An easy way of running the script is
 `SECRET_CODE='amaze algorithm' npm start`.
 
+Remember to set the `NODE_ENV='production'` to suppress stack traces and stuff
+in prod.
+
 ## setup
 
 When the code for this puzzle has been completed, everything in this directory
