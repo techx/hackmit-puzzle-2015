@@ -24,7 +24,7 @@ def alphabetic(bv):
     return reduce(lambda a, b: z3.And(a, b), is_alpha)
 
 def add_constraints(s, bv):
-    if len(bv) < 10:
+    if len(bv) < 10 or len(bv) % 2 != 0:
         return False
 
     s.add(alphabetic(bv))
@@ -35,9 +35,11 @@ def add_constraints(s, bv):
 
     left = bv[:len(bv)/2]
     right = bv[len(bv)/2:]
+    even = bv[::2]
 
     s.add(cksum(left) == upper)
     s.add(cksum(right) == lower)
+    s.add(cksum(even) == z3.BitVecVal(0x0000, 16))
 
     return True
 
