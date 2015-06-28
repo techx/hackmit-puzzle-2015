@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+
+# you need z3 to be able to run this
+# https://github.com/Z3Prover/z3
+
 import z3
 
 DEBUG = False

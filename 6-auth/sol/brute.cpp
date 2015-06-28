@@ -1,4 +1,6 @@
 // sorry for messy code and mixing c/c++ libs
+// compile with something like g++ -O3 -std=c++11 -o brute brute.cpp
+// this pretty meh code takes something like 4.5 min to run on a reasonably fast i7
 
 #include <cstdio>
 #include <cstdint>
