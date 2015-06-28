@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
     isAdmin: { type: 'Boolean' },
     created: { type: 'Date', default: Date.now },
     isSuspicious: { type: 'Boolean', default: false },
+    reasonForSuspicion: { type: 'String' },
     completionTime: { type: 'Date' },
     isFirstFifty: { type: 'Boolean', default: false }
 });
@@ -33,8 +34,9 @@ userSchema.method('getSubmissionLogs', function(callback){
 });
 
 // flag user for being suspicious
-userSchema.method('flag', function(callback){
+userSchema.method('flag', function(reason, callback){
     this.isSuspicious = true;
+    this.reasonForSuspicion = reason;
     this.save(callback);
 });
 
