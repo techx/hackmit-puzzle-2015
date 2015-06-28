@@ -9,9 +9,9 @@ var getOrDie = function(varName) {
     }
 }
 
-function Puzzle(url, verifierFunction) {
+function Puzzle(urlGenerationFunction, verifierFunction) {
     return {
-      url: url,
+      generateUrl: urlGenerationFunction,
       verifierFunction: verifierFunction
     }
 }
@@ -31,11 +31,11 @@ config.admins = [ "katexyu",
                   "jenniferjzhang",
                   "zareenc" ];
 
-config.puzzles = [ Puzzle("url1", function(guess){ return guess == "answer"; }),
-                   Puzzle("url2", function(guess){ return guess == "answer"; }),
-                   Puzzle("url3", function(guess){ return guess == "answer"; }),
-                   Puzzle("url4", function(guess){ return guess == "answer"; }),
-                   Puzzle("url5", function(guess){ return guess == "answer"; }),
-                   Puzzle("url6", function(guess){ return guess == "answer"; }) ];
+config.puzzles = [ Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+                   Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+                   Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+                   Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+                   Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+                   Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }) ];
 
 module.exports = config;
