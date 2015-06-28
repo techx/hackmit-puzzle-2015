@@ -10,8 +10,8 @@ def cksum(bv):
     a = z3.BitVecVal(0, 16)
     b = z3.BitVecVal(0, 16)
     for byte in bv:
-        a = (a + z3.ZeroExt(8, byte)) % 255
-        b = (b + a) % 255
+        a = (a + z3.ZeroExt(8, byte)) % 0xff
+        b = (b + a) % 0xff
 
     return (b << 8) | a
 

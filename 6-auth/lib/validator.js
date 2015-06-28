@@ -23,8 +23,8 @@ validator.validate = function(password) {
     var a = 0;
     var b = 0;
     for (var i = 0; i < bytes.length; i++) {
-      a = (a + bytes[i]) % 255;
-      b = (b + a) % 255;
+      a = (a + bytes[i]) % 0xff;
+      b = (b + a) % 0xff;
     }
     return (b << 8) | a;
   }
