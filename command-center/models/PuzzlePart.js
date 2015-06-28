@@ -20,7 +20,7 @@ var puzzlePartSchema = new mongoose.Schema({
 puzzlePartSchema.set('autoIndex', false);
 
 puzzlePartSchema.statics.createPart = function(userId, githubUsername, number, callback) {
-    this.create({ user: userId, number: number, url: Puzzles[number].generateUrl(user.githubUsername) }, callback);
+    this.create({ user: userId, number: number, url: Puzzles[number].generateUrl(githubUsername) }, callback);
 }
 
 puzzlePartSchema.method('resetTimeout', function(callback){
