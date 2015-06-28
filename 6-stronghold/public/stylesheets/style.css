@@ -1,8 +1,12 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Comic Sans MS", cursive, sans-serif
 }
 
 a {
   color: #00B7FF;
+}
+
+* {
+  transition-duration: 4s;
 }
