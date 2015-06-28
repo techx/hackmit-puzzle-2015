@@ -79,7 +79,7 @@ UserController.flagUser = function(req, res) {
         } else if (!user){
             res.status(404).send({ "error": "User not found." });
         } else {
-            user.flag(req.query.reason, function(err){
+            user.flag(req.query.reason, req.user.githubUsername, function(err){
                 if (err){
                     res.status(500).send(err);
                 } else {

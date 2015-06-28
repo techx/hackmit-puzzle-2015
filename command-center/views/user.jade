@@ -59,9 +59,13 @@ block content
         p
             strong Suspicious: 
             span= user.isSuspicious
-        p
-            strong Suspicious Because: 
-            span= user.reasonForSuspicion
+        if user.isSuspicious
+            p
+                strong Suspicious Because: 
+                span= user.reasonForSuspicion
+            p
+                strong Flagged By: 
+                span= user.flaggedBy
         p 
             strong First Fifty?: 
             span= user.isFirstFifty
