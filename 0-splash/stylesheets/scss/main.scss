@@ -1,0 +1,254 @@
+@import '_constants';
+
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: $gold;
+  font-size: 0.85em;
+
+  section {
+    width: 100%;
+    position: relative;
+  }
+
+  div {
+    position: relative;
+  }
+}
+
+/*
+ * shared classes
+ */
+
+// TODO fix fonts on firefox
+.montserrat, .montserrat-bold {
+  font-family: $montserrat;
+}
+
+.montserrat-bold {
+  font-weight: 700;
+}
+
+.lato {
+  font-family: $lato;
+  font-weight: 600;
+}
+
+.hidden {
+  display: none;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+a {
+  color:$gold;
+}
+
+/* Ben's stuff 
+ * temporarily
+ */
+
+
+div.divider {
+  height: 3.3em;
+  background-image: url("/assets/images/hack-logo-tile-purple.svg");
+  background-position: -5px;
+  background-repeat: repeat-x;
+  background-color: $magenta;
+  background-size: auto 3em;
+}
+
+.divider.deeppurple {
+  background-image: url("/assets/images/hack-logo-tile-purple.svg");
+}
+
+.divider.blue {
+  background-image: url("/assets/images/hack-logo-tile-blue.svg");
+}
+
+.divider.magenta {
+  background-image: url("/assets/images/hack-logo-tile-magenta.svg");
+}
+
+.divider.yellow {
+  background-image: url("/assets/images/hack-logo-tile-yellow.svg");
+}
+
+.divider.deeppurplebg {
+  background-color: $deeppurple;
+}
+
+.divider.bluebg {
+  background-color: $blue;
+}
+
+.divider.magentabg {
+  background-color: $magenta;
+}
+
+.divider.yellowbg {
+  background-color: $gold;
+}
+
+
+section {
+  h2 {
+    font-size: 3em;
+    letter-spacing: 5px;
+    line-height: 1.3em;
+    margin:0;
+  }
+
+  p,
+  label,
+  input {
+    font-size: 1.1em;
+    line-height: 1.5em;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .row {
+    margin-top: 0;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  input {
+    padding: 10px 2%;
+    width: 80%;
+  }
+
+  input:focus {
+    outline: 0;
+  }
+}
+
+section.ui.page.grid {
+  min-width: 0;
+}
+section.ui.page.grid.padded {
+  padding-top: 5%;
+  padding-bottom: 7%;
+}
+
+
+section#splash {
+  // workaround to simulate min-height: 100%
+  // see http://stackoverflow.com/questions/8468066/child-inside-parent-with-min-height-100-not-inheriting-height
+  display: table;
+  table-layout: fixed;
+  height: inherit;
+  width: 100%; // there's a one pixel width bug here
+
+  div.splash-container {
+    font-size: 1em;
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    // add space to account for nav bar
+    padding-bottom: 3.5em;
+
+    // VERTICAL CENTERING. These two classes
+    // exist solely to vertically center in a display:table-cell
+    .splash-relative {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .splash-centerer { 
+      width: 100%;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+    }
+
+    div.splash-banner {
+      width: 37.5%;
+      margin: 0 auto;
+
+      img {
+        max-width: 100%;
+      }
+      img.logo {
+        position: absolute;
+        // fallback
+        width: 10%;
+        width: 13vw;
+        height: 13vw;
+        margin: auto;
+        top: 0; left: 0; bottom: 0; right: 0;
+      }
+      h1.title {
+        position: absolute;
+        margin: 0;
+        left: 0; right: 0;
+        bottom: 2px;
+        letter-spacing: 8px;
+        line-height: 1.2em;
+        font-size: 3em;  // fallback
+        font-size: 5.5vw;
+        padding-left: 5px;
+        color: $white;
+      }
+    }
+  }
+
+  div.splash-text {
+    margin: 0 0 5px 0 !important;
+    padding: 0 !important;
+
+    h2.title {
+      line-height: 1.1em;
+      font-size: 3em; // fallback
+      font-size: 5.5vw;
+      margin: 0;
+      letter-spacing: 8px;
+      padding-left: 5px;
+      color: $deeppurple;
+    }
+    h2.title:focus {
+      outline: 0px solid transparent;
+    }
+  }
+}
+
+#navbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  .menu {
+    background-color: $gold;
+    font-family: $montserrat;
+    text-transform: uppercase;
+    font-size: 1em;
+    text-align: center;
+    border: 0;
+
+    .item {
+      width: 8em;
+      padding-top: 1.2em;
+      border-bottom: 4px solid transparent;
+      color: $deeppurple;
+      font-weight: bold;
+    }
+
+    .item.important {
+      color: red;
+    }
+
+    .item:hover {
+      background: $magenta;
+      border-bottom: 3px solid $blue
+    }
+  }
+}
