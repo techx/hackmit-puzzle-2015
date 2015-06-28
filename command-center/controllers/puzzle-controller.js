@@ -9,7 +9,7 @@ PuzzleController.createNew = function(req, res){
         } else if (count != 0){
             res.status(200).send({});
         } else {
-            mongoose.model('PuzzlePart').createPart(req.user._id, 0, function(err, puzzlePart){
+            mongoose.model('PuzzlePart').createPart(req.user._id, req.user.githubUsername, 0, function(err, puzzlePart){
                 if (err){
                     respondWithError(err, res);
                 } else {

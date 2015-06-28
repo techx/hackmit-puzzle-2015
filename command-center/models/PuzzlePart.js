@@ -19,8 +19,8 @@ var puzzlePartSchema = new mongoose.Schema({
 
 puzzlePartSchema.set('autoIndex', false);
 
-puzzlePartSchema.statics.createPart = function(userId, number, callback) {
-    this.create({ user: userId, number: number, url: Puzzles[number].url }, callback);
+puzzlePartSchema.statics.createPart = function(userId, githubUsername, number, callback) {
+    this.create({ user: userId, number: number, url: Puzzles[number].generateUrl(user.githubUsername) }, callback);
 }
 
 puzzlePartSchema.method('resetTimeout', function(callback){
@@ -86,7 +86,7 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                         callback(err);
                     } else if (that.number != Puzzles.length-1) {
                         mongoose.model('PuzzlePart')
-                            .createPart(that.user, that.number+1 , callback(err, true));
+                            .createPart(that.user, username, that.number+1, callback(err, true));
                     } else {
                         mongoose.model('User')
                             .count({ completionTime : { $ne: null } }
