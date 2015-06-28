@@ -50,7 +50,7 @@ trait MazeService extends HttpService {
   def page(content: scala.xml.Elem) = {
     <html>
       <head>
-        <title>Dogesplorer!</title>
+        <title>Wow!</title>
         <style>
         {scala.xml.Unparsed("""
           pre {
