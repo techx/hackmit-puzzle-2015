@@ -51,6 +51,7 @@ validator.validate = function(password) {
 
   if (password.length % 2 != 0) {
     // much asymmetric
+    return false;
   }
 
   var bytes = toBytes(password);
