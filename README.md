@@ -35,9 +35,9 @@ boots up is nice.
 0. Misc Domains
     * Splash Page: `dogemit.party`
     * Command Center: `0xbaff1edd09e.dogemit.party`
-1. Slack: `0xd06ec0de.dogemit.party`
-2. Origami: `0x5e1f1ed06e.dogemit.party`
-3. QR: `0xd06eb17e.dogemit.party`
-4. Audio: `0xff7d06e.dogemit.party`
-5. Maze: `0xd06eeffec7.dogemit.party`
-6. Stronghold: `0xd06e5ec.dogemit.party`
+1. Slack: `0xd09ec0de.dogemit.party`
+2. Origami: `0x5e1f1ed09e.dogemit.party`
+3. QR: `0xd09eb17e.dogemit.party`
+4. Audio: `0xff7d09e.dogemit.party`
+5. Maze: `0xd09eeffec7.dogemit.party`
+6. Stronghold: `0xd09e5ec.dogemit.party`
