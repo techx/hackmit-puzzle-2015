@@ -109,6 +109,7 @@ def newPuzzle(name):
     @param name: Name or id of the person attempting puzzle
     @returns clue: Clue to give to the person
     '''
+    print "Preparing a puzzle for: " + name
     SECRET = "d09e4l143"
     hexCode = hashlib.sha256(name + SECRET).hexdigest()#[0:10]
 
@@ -145,4 +146,4 @@ def test(data, imageName):
     binToQr(binQr,result["width"],result["qrSize"], imageName )
 
 #test("Testing QR code", "generated-qr")
-newPuzzle("Fernando Trujano")
+#newPuzzle("Fernando Trujano")

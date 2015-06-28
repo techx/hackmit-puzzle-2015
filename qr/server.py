@@ -4,8 +4,8 @@ from flask import render_template
 import qr
 app = Flask(__name__)
 
-@app.route('/')
-@app.route('/<name>')
+@app.route('/p')
+@app.route('/p/<name>')
 
 def hello(name="a"):
 
