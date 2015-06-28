@@ -29,3 +29,15 @@ nohup $cmd &
 Note that it would probably be better to wrap this in something that watches
 for failures and reboots if necessary. Also, auto-starting when the machine
 boots up is nice.
+
+## Puzzle Domains
+
+0. Misc Domains
+    * Splash Page: `dogemit.party`
+    * Command Center: `0xbaff1edd09e.dogemit.party`
+1. Slack: `0xd06ec0de.dogemit.party`
+2. Origami: `0x5e1f1ed06e.dogemit.party`
+3. QR: `0xd06eb17e.dogemit.party`
+4. Audio: `0xff7d06e.dogemit.party`
+5. Maze: `0xd06eeffec7.dogemit.party`
+6. Stronghold: `0xd06e5ec.dogemit.party`
