@@ -5,7 +5,7 @@ html, body {
   width: 100%;
   padding: 0;
   margin: 0;
-  background-color: $gold;
+  background: none;
   font-size: 0.85em;
 
   section {
@@ -49,9 +49,17 @@ a {
   color:$gold;
 }
 
-/* Ben's stuff 
- * temporarily
- */
+img.doge {
+  transition-duration: 0;
+}
+
+img.doge.right {
+  transform: rotate(15deg);
+}
+
+img.doge.left {
+  transform: rotate(345deg);
+}
 
 
 div.divider {
@@ -174,6 +182,8 @@ section#splash {
     div.splash-banner {
       width: 37.5%;
       margin: 0 auto;
+      transition-duration: 3s;
+      
 
       img {
         max-width: 100%;
