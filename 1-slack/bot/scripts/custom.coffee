@@ -14,13 +14,10 @@
 #   kimberli
 
 #helpful http://doatt.com/2015/02/18/the-hubot-msg-object/
-#helper methods
-get_random_int = (min, max) ->
-  Math.floor(Math.random() * (max - min + 1)) + min
 
 module.exports = (robot) ->
 
-  robot.brain.set 'responses', lines
+  robot.brain.set 'line_num', 0
 
   #general channel responses
 
@@ -63,35 +60,21 @@ module.exports = (robot) ->
 
   robot.hear /much|very|so|such|wow|many/i, (res) ->
     if res.message.room.toLowerCase() == res.message.user.name.toLowerCase()
-      line_num = get_random_int(0,lines.length-1)
-      res.send "#{lines[line_num]} shh #{letters[line_num]}"
+      num = robot.brain.get 'line_num'
+      res.send "#{lines[num]}"
+      if num == 8
+        robot.brain.set 'line_num', 0
+      else
+        robot.brain.set 'line_num', num+1
 
-letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-
-lines = ["shh this is message from dogebot",
-  "shh pls send dogebot to hackmit",
-  "very hack is 'doge'",
-  "very believe is 'mit'",
-  "very amaze is '.party'",
-  "very treat is 'http'",
-  "such bark",
-  "    plz secret with 'a doge'",
-  "wow",
-  "such woof",
-  "    plz secret with 'a shibe'",
-  "wow",
-  "such secret much doge",
-  "  rly doge is 'a shibe'",
-  "    treat is treat + '://'",
-  "    treat is treat + hack",
-  "  but rly doge is 'a doge'",
-  "    treat is treat + believe",
-  "  but",
-  "    treat is treat + amaze",
-  "  wow",
-  "wow treat",
-  "plz woof",
-  "plz bark",
-  "very hackdoge is plz secret with 'a biscit'",
-  "windoge.location dose replace with hackdoge"
-  ]
+lines = [
+"shh this is message from dogebot",
+"shh pls send dogebot to hackmit",
+"very amaze is 'amaze'",
+"very believe is 'robot'",
+"such bark much woof",
+"very excite is amaze + woof",
+"wow excite",
+"very hack is plz bark with believe",
+"console dose loge with hack"
+]
