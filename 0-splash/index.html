@@ -55,11 +55,11 @@
       <div class="splash-relative">
       <div class="splash-centerer">
       <div class="splash-banner">
-        <img src="assets/images/doge.jpg"/>
+        <img class="doge" src="assets/images/doge.png"/>
         <h1 class="comic-sans-bold title">DOGEMIT</h1>
       </div>
       <div class="splash-text">
-        <h2 class="comic-sans-bold title">SEPT.19&amp;20</h1>
+        <h2 class="comic-sans title">such hack much troll</h1>  
       </div>
       </div>
       </div>
@@ -91,6 +91,38 @@
     }
     function onPlayerReady(event) {
       event.target.playVideo();
+   	
+   		var doge = $('img.doge');
+
+      setInterval(function(){
+      	doge.hasClass('right') ? doge.removeClass('right').addClass('left') : doge.addClass('right').removeClass('left');
+      },1000)
+
+
+		setInterval(function(){
+		  var nodes = document.getElementsByClassName('splash-banner');
+
+		  var w = window.innerWidth;
+		  var h = window.innerHeight;
+
+		  w -= $('.splash-banner').width();
+		  h -= $('.splash-banner').width();
+
+		  for (var i =0; i < nodes.length; i++){
+		    var node = nodes[i];
+
+		    var r_w = Math.random() * w + 'px';
+		    var r_h = Math.random() * h + 'px';
+		    var r_z = Math.random() * 100;
+
+
+		    var translate = "translate3d(" + r_w + "," + r_h + ", 0)";
+		    node.style.transform = translate;
+
+		    node.style.fontSize = (Math.random() * 80 + 24) + 'px';
+		  }
+
+		}, 1000);
     }
     function onPlayerStateChange(event) {
       if (event.data == YT.PlayerState.ENDED) {

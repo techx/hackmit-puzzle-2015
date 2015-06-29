@@ -63,13 +63,13 @@ function checkQR() {
 
 config.puzzles = [
     /* puzzle 1 - slack */
-    Puzzle(function(username) { return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+    Puzzle(function(username) { return "http://0xd09ec0de.dogemit.party";}, function(guess){ return guess == "amaze robot"; }),
     /* puzzle 2 - origami */
     Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
     /* puzzle 3 - qr */
     Puzzle(function(username){ return "https://0xd09eb17e.dogemit.party/" + username;}, checkQR()),
     /* puzzle 4 - audio */
-    Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+    Puzzle(function(username){ return "http://0xff7d09e.dogemit.party";}, function(guess){ return guess == "such hertz"; }),
     /* puzzle 5 - maze */
     Puzzle(function(){ return "http://0xd09eeffec7.dogemit.party";}, check('much snarl')),
     /* puzzle 6 - stronghold */
