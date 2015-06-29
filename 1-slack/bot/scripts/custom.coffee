@@ -70,7 +70,7 @@ module.exports = (robot) ->
 lines = [
 "shh this is message from dogebot",
 "shh pls send dogebot to hackmit",
-"very amaze is 'amaze'",
+"very amaze is 'amaze '",
 "very believe is 'robot'",
 "such bark much woof",
 "very excite is amaze + woof",
