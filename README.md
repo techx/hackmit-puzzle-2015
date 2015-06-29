@@ -37,7 +37,7 @@ boots up is nice.
 |    All | Command Center | `0xbaff1edd09e.dogemit.party` | AWS (Good box)           |
 |      0 | Splash Page    | `dogemit.party`               | Github Pages             |
 |      1 | Slack          | `0xd09ec0de.dogemit.party`    | AWS (Decent box)&spades; |
-|      2 | Origami        | `0x5e1f1ed09e.dogemit.party`  | AWS (Shitty box)         |
+|      2 | Origami        | `0x5e1f1ed09e.dogemit.party`  | Github Pages             |
 |      3 | QR             | `0xd09eb17e.dogemit.party`    | AWS (Shitty box)         |
 |      4 | Audio          | `0xff7d09e.dogemit.party`     | Github Pages             |
 |      5 | Maze           | `0xd09eeffec7.dogemit.party`  | AWS (Shitty box)         |
