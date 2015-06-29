@@ -1,0 +1,22 @@
+extends layout
+block head
+block content
+    h1 What's up #{currentUser}
+    div#error
+    if puzzleParts.length == 0
+        script
+            include ./js/create-puzzle.js
+        form
+            button#start-button Start Puzzle!
+    else
+        if done
+            if firstFifty
+                h2.congrats YAY YOU WERE ONE OF THE FIRST 50 TO FINISH THE PUZZLE! very solve much impress
+            else 
+                h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
+        else
+            script
+                include ./js/make-guess.js
+        for p in puzzleParts
+            mixin puzzlePart(p)
+    include puzzlePart

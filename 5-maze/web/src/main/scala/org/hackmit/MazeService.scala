@@ -50,7 +50,7 @@ trait MazeService extends HttpService {
   def page(content: scala.xml.Elem) = {
     <html>
       <head>
-        <title>Dogesplorer!</title>
+        <title>Wow!</title>
         <style>
         {scala.xml.Unparsed("""
           pre {
@@ -68,11 +68,36 @@ trait MazeService extends HttpService {
           .special {
             color: #00ffff;
           }
+          #outer {
+            /* Vertical Align */
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+
+
+            /* Horizontally align inner */
+            width: 100%;
+            display: -moz-box;
+            -moz-box-pack: center;
+            -moz-box-align: center;
+            display: -webkit-box;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+            display: box;
+            box-pack: center;
+            box-align: center;
+          }
+          #inner {
+          }
         """)}
         </style>
       </head>
       <body>
-        {content}
+        <div id="outer">
+          <div id="inner">
+            {content}
+          </div>
+        </div>
       </body>
     </html>
   }

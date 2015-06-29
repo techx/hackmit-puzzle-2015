@@ -1,1 +1,1 @@
-see gh-pages branch for webpage
+see `web/` for the web page

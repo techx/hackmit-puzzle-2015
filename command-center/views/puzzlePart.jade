@@ -1,0 +1,18 @@
+mixin puzzlePart(p)
+    div.puzzlepart
+        a(href=p.url)
+            h3 Puzzle #{p.number+1}
+        if p.timeout != 0 && !p.completionTimestamp
+            img(src="/assets/sad_doge.gif").sad-doge
+            p Please try again in #{p.timeout}.
+        else
+            if (p.completionTimestamp)
+                span.correct-guess= p.lastGuess
+                span.correct  ✓
+            else
+                form
+                    input(type="hidden", value=p.number, name="puzzleNumber")
+                    input(type="text", value=p.lastGuess, name="guess")
+                div#feedback
+                button#submit-answer Submit Answer
+
