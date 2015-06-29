@@ -7,6 +7,8 @@ router.get('/', function(req, res) {
   res.render('index', { community: config.community });
 });
 
+router.use(express.static('public'));
+
 router.post('/invite', function(req, res) {
   if (req.body.email) {
     request.post({
@@ -24,9 +26,9 @@ router.post('/invite', function(req, res) {
         if (err) { return res.send('Error:' + err); }
         body = JSON.parse(body);
         if (body.ok) {
-          res.send('Success! Check "'+ req.body.email +'" for an invite from Slack.');
+          res.render('result', { result: "success", msg: "welcome! check your email then go to dogemit.slack.com", community: config.community })
         } else {
-          res.send('Failed! ' + body.error)
+          res.render('result', { result: "error", msg: body.error, community: config.community })
         }
       });
   } else {

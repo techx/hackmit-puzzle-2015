@@ -8,7 +8,7 @@ html
         font: 14px "Comic Sans MS", sans-serif;
         background-color: yellow;
       }
-      input{
+      input {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -28,16 +28,5 @@ html
         background-color: red;
       }
   body
-    h1 Join the #{community} community on Slack!
-    form(method="POST", action="/invite")#join-form
-      input(type="text", name="email", placeholder="Enter your email")#slack-email
-      input(type="submit", value="wow")
-    img(src="/assets/computer-doge.jpg")
-    script.
-      var form = document.getElementById('join-form');
-      var email = document.getElementById('slack-email')
-      form.addEventListener('submit', function(evt) {
-        if (!email.value) {
-          evt.preventDefault();
-        }
-      });
+    h1 #{community} #{result}
+    p #{msg}

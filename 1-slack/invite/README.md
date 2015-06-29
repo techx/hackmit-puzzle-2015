@@ -1,6 +1,8 @@
 Slack Invite Automation
 ------------
 
+(right now we're using kim's access token)
+
 A tiny web application to invite a user info your slack team.
 
 Inspired by
