@@ -30,14 +30,17 @@ Note that it would probably be better to wrap this in something that watches
 for failures and reboots if necessary. Also, auto-starting when the machine
 boots up is nice.
 
-## Puzzle Domains
+## Puzzle Hosting Stuff
 
-0. Misc Domains
-    * Splash Page: `dogemit.party`
-    * Command Center: `0xbaff1edd09e.dogemit.party`
-1. Slack: `0xd09ec0de.dogemit.party`
-2. Origami: `0x5e1f1ed09e.dogemit.party`
-3. QR: `0xd09eb17e.dogemit.party`
-4. Audio: `0xff7d09e.dogemit.party`
-5. Maze: `0xd09eeffec7.dogemit.party`
-6. Stronghold: `0xd09e5ec.dogemit.party`
+| Number | Name           | Domain                        | Where hosted             |
+| ------:| -------------- | ----------------------------- | ------------------------ |
+|    All | Command Center | `0xbaff1edd09e.dogemit.party` | AWS (Good box)           |
+|      0 | Splash Page    | `dogemit.party`               | Github Pages             |
+|      1 | Slack          | `0xd09ec0de.dogemit.party`    | AWS (Decent box)&spades; |
+|      2 | Origami        | `0x5e1f1ed09e.dogemit.party`  | AWS (Shitty box)         |
+|      3 | QR             | `0xd09eb17e.dogemit.party`    | AWS (Shitty box)         |
+|      4 | Audio          | `0xff7d09e.dogemit.party`     | Github Pages             |
+|      5 | Maze           | `0xd09eeffec7.dogemit.party`  | AWS (Shitty box)         |
+|      6 | Stronghold     | `0xd09e5ec.dogemit.party`     | AWS (Shitty box)         |
+
+&spades; Will get a bunch of traffic when we first start, since its easy to get to.
