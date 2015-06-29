@@ -58,11 +58,35 @@
         <h1 class="comic-sans-bold title">DOGEMIT</h1>
       </div>
       <div class="splash-text">
-        <h2 class="comic-sans title">such hack much wow</h1>  
+        <h2 id="main-text" class="comic-sans title">such hack much wow</h1>
       </div>
       </div>
     </div>
   </section>
+  <script>
+  var colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff', '#00ffff'];
+  var mainText = document.getElementById('main-text');
+  var i = 0;
+  function recolor() {
+    mainText.style.color = colors[i];
+    i = i + 1;
+    if (i >= colors.length) {
+      i = 0;
+    }
+  }
+  var bpm = 160;
+  var step = 60 / bpm * 1000;
+  var prev = 0; // in milliseconds
+  function animate(timestamp) {
+    console.log(timestamp);
+    if (timestamp - prev > step) {
+      recolor();
+      prev = timestamp;
+    }
+    window.requestAnimationFrame(animate);
+  }
+  window.requestAnimationFrame(animate); // kick off animation
+  </script>
   <div id="player"></div>
   <script>
     var tag = document.createElement('script');
@@ -89,7 +113,7 @@
     }
     function onPlayerReady(event) {
       event.target.playVideo();
-   	
+
    		var doge = $('img.doge');
 
       setInterval(function(){
