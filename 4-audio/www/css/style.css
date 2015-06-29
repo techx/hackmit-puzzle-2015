@@ -1,7 +1,7 @@
 /* author kimberli */
-@font-face { 
-	font-family: 'LDFComicSans'; src: url('LDFComicSans.ttf');
-} 
+@font-face {
+	font-family: 'LDFComicSans'; src: url('/assets/fonts/LDFComicSans.ttf');
+}
 body {
 	width: 100%;
 	height: 100vh;
