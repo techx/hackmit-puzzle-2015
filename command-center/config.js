@@ -31,10 +31,10 @@ config.admins = [ "katexyu",
                   "jenniferjzhang",
                   "zareenc" ];
 
-config.puzzles = [ Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+config.puzzles = [ Puzzle(function(username){ return "http://0xd09ec0de.dogemit.party";}, function(guess){ return guess == "amazerobot"; }),
                    Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
                    Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
-                   Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+                   Puzzle(function(username){ return "http://0xff7d09e.dogemit.party";}, function(guess){ return guess == "suchhertz"; }),
                    Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
                    Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }) ];
 
