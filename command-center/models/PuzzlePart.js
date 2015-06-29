@@ -5,11 +5,15 @@ var Puzzles = require('../config').puzzles;
 // seconds
 BACKOFF_INTERVALS = [0, 30, 120, 300, 600, 1800, 3600]
 
+// acceptable interval between guesses without penalty (ms)
+INTERVAL_BETWEEN_GUESSES = 10000
+
 var puzzlePartSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     number: { type: 'Number', required: true },
     createdAt: { type: 'Date', default: Date.now },
     lastGuess: { type: 'String', default: "" },
+    lastGuessTimestamp: { type: 'Date' },
     completionTimestamp: { type: 'Date' },
     timeoutLevel: { type: 'Number', min: 0, max: 5, default: 0 },
     lastTimeoutTimestamp: { type: 'Date' },
@@ -111,7 +115,10 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                     }
                 });
             } else {
-                that.guessesBeforeBackoff -= 1;
+                if (that.lastGuessTimestamp && Date.now() - that.lastGuessTimestamp < INTERVAL_BETWEEN_GUESSES) {
+                    that.guessesBeforeBackoff -= 1;
+                }
+                that.lastGuessTimestamp = Date.now();
                 that.lastGuess = guess;
                 if (that.guessesBeforeBackoff == 0) {
                     that.invokeTimeout(callback);
