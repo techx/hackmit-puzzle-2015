@@ -3,7 +3,7 @@ html, body {
   width: 100%;
   padding: 0;
   margin: 0;
-  background-color: #ffe552;
+  background: none;
   font-size: 0.85em; }
   html section, body section {
     width: 100%;
@@ -99,6 +99,7 @@ section.ui.page.grid.padded {
   padding-bottom: 7%; }
 
 section#splash {
+  position: fixed;
   display: table;
   table-layout: fixed;
   height: inherit;
