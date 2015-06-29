@@ -151,6 +151,7 @@ section.ui.page.grid.padded {
 section#splash {
   // workaround to simulate min-height: 100%
   // see http://stackoverflow.com/questions/8468066/child-inside-parent-with-min-height-100-not-inheriting-height
+  position: fixed;
   display: table;
   table-layout: fixed;
   height: inherit;
@@ -171,7 +172,7 @@ section#splash {
       height: 100%;
       position: relative;
     }
-    .splash-centerer { 
+    .splash-centerer {
       width: 100%;
       top: 50%;
       -webkit-transform: translateY(-50%);
@@ -183,7 +184,6 @@ section#splash {
       width: 37.5%;
       margin: 0 auto;
       transition-duration: 3s;
-      
 
       img {
         max-width: 100%;

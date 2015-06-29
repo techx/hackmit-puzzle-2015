@@ -53,18 +53,50 @@
   <section id="splash">
     <div class="splash-container">
       <div class="splash-relative">
-      <div class="splash-centerer">
       <div class="splash-banner">
         <img class="doge" src="assets/images/doge.png"/>
-        <h1 class="comic-sans-bold title">DOGEMIT</h1>
+        <h1 id="doge-text" class="comic-sans-bold title">DOGEMIT</h1>
       </div>
       <div class="splash-text">
-        <h2 class="comic-sans title">such hack much troll</h1>  
-      </div>
+        <h2 id="main-text" class="comic-sans title">such hack much wow</h1>
       </div>
       </div>
     </div>
   </section>
+  <script>
+  var colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff', '#00ffff'];
+  var offset = 3;
+  var mainText = document.getElementById('main-text');
+  var dogeText = document.getElementById('doge-text');
+  var i = 0;
+  var j = 0;
+  function recolor() {
+    if (j % 2 === 0) {
+      mainText.style.color = colors[i];
+    } else {
+      dogeText.style.color = colors[(i + offset) % colors.length];
+    }
+    j = 1 - j;
+    if (j % 2 === 0) {
+      i = i + 1;
+      if (i >= colors.length) {
+        i = 0;
+      }
+    }
+  }
+  var bpm = 320;
+  var step = 60 / bpm * 1000;
+  var prev = 0; // in milliseconds
+  function animate(timestamp) {
+    console.log(timestamp);
+    if (timestamp - prev > step) {
+      recolor();
+      prev = timestamp;
+    }
+    window.requestAnimationFrame(animate);
+  }
+  window.requestAnimationFrame(animate); // kick off animation
+  </script>
   <div id="player"></div>
   <script>
     var tag = document.createElement('script');
@@ -91,7 +123,7 @@
     }
     function onPlayerReady(event) {
       event.target.playVideo();
-   	
+
    		var doge = $('img.doge');
 
       setInterval(function(){
@@ -105,8 +137,8 @@
 		  var w = window.innerWidth;
 		  var h = window.innerHeight;
 
-		  w -= $('.splash-banner').width();
-		  h -= $('.splash-banner').width();
+		  w -= $('.doge').width();
+		  h -= $('.doge').width();
 
 		  for (var i =0; i < nodes.length; i++){
 		    var node = nodes[i];
