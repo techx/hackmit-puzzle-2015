@@ -4,17 +4,41 @@
     <style>
     body {
         width: 80%;
-        background-color: cyan;
+        background-color: rgba(255,229,82,1);
     }
+
     p {
         font-family: "Comic Sans MS", cursive, sans-serif;
+        text-transform: uppercase;
         overflow-wrap: break-word;
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+
+    #doge {
+        width: 400px;
+        height: auto;
+    }
+
+    .doge-column {
+        float: left;
+        width: 50%;
+    }
+
+    .apples-column {
+        float: right;
+        width: 50%;
     }
 
     </style>
 </head>
 <body>
-    <p>  Doge was looking for a square of 0's and ones but the only thing he found was {{num}} apples. What does he do now? </p>
+    <div class="doge-column">
+        <img src="/static/doge.png" id="doge">
+    </div>
+    <div class="apples-column">
+        <p>Doge was looking for a square of 0's and ones but the only thing he found was</p> 
+        <h1>{{num}} apples.</h1>
+        <p>What does he do now?</p>
+    </div>
 </body>
 </html>
