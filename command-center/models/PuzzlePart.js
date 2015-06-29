@@ -71,7 +71,7 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
         callback(err); // don't let them enter more guesses for completed puzzles
     }
     var that = this;
-    var isCorrect = Puzzles[this.number].verifierFunction(guess.trim());
+    var isCorrect = Puzzles[this.number].verifierFunction(guess.trim(), username);
     // log guesses
     Submission
         .create({ user: username, 
