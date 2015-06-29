@@ -14,10 +14,10 @@ html, body {
 /*
  * shared classes
  */
-.montserrat, .montserrat-bold {
-  font-family: "Montserrat", sans-serif; }
+.comic-sans, .comic-sans-bold {
+  font-family: "Comic Sans MS"; }
 
-.montserrat-bold {
+.comic-sans-bold {
   font-weight: 700; }
 
 .lato {
