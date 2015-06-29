@@ -7,7 +7,7 @@ validator.validate = function(password) {
   // such secure wow:
 
   function alphabetic(str) {
-    return /^[a-zA-Z()]+$/.test(str);
+    return /^[a-zA-Z]+$/.test(str);
   }
 
   function toBytes(str) {
