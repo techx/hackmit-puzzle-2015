@@ -146,7 +146,7 @@ section#splash {
         font-size: 3em;
         font-size: 5.5vw;
         padding-left: 5px;
-        color: #fafafa; }
+        color: #e76482; }
   section#splash div.splash-text {
     margin: 0 0 5px 0 !important;
     padding: 0 !important; }
@@ -160,27 +160,3 @@ section#splash {
       color: #473899; }
     section#splash div.splash-text h2.title:focus {
       outline: 0px solid transparent; }
-
-#navbar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%; }
-  #navbar .menu {
-    background-color: #ffe552;
-    font-family: "Montserrat", sans-serif;
-    text-transform: uppercase;
-    font-size: 1em;
-    text-align: center;
-    border: 0; }
-    #navbar .menu .item {
-      width: 8em;
-      padding-top: 1.2em;
-      border-bottom: 4px solid transparent;
-      color: #473899;
-      font-weight: bold; }
-    #navbar .menu .item.important {
-      color: red; }
-    #navbar .menu .item:hover {
-      background: #e76482;
-      border-bottom: 3px solid #4c82cc; }
