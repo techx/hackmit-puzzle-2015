@@ -55,7 +55,7 @@
       <div class="splash-relative">
       <div class="splash-banner">
         <img class="doge" src="assets/images/doge.png"/>
-        <h1 class="comic-sans-bold title">DOGEMIT</h1>
+        <h1 id="doge-text" class="comic-sans-bold title">DOGEMIT</h1>
       </div>
       <div class="splash-text">
         <h2 id="main-text" class="comic-sans title">such hack much wow</h1>
@@ -65,13 +65,23 @@
   </section>
   <script>
   var colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff', '#00ffff'];
+  var offset = 3;
   var mainText = document.getElementById('main-text');
+  var dogeText = document.getElementById('doge-text');
   var i = 0;
+  var j = 0;
   function recolor() {
-    mainText.style.color = colors[i];
-    i = i + 1;
-    if (i >= colors.length) {
-      i = 0;
+    if (j % 2 === 0) {
+      mainText.style.color = colors[i];
+    } else {
+      dogeText.style.color = colors[(i + offset) % colors.length];
+    }
+    j = 1 - j;
+    if (j % 2 === 0) {
+      i = i + 1;
+      if (i >= colors.length) {
+        i = 0;
+      }
     }
   }
   var bpm = 320;
