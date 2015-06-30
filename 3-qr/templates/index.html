@@ -9,7 +9,6 @@
 
     p {
         font-family: "Comic Sans MS", cursive, sans-serif;
-        text-transform: uppercase;
         overflow-wrap: break-word;
         font-size: 1.5rem;
     }
@@ -25,25 +24,27 @@
     }
 
     .doge-column {
-        float: left;
-        width: 50%;
+        float: right;
+        width: 20%;
+        padding: 10px 10px;
     }
 
     .apples-column {
-        float: right;
-        width: 50%;
+        float: left;
+        width: 70%;
+        padding: 10px 10px;
     }
 
     </style>
 </head>
 <body>
+    <div class="apples-column">
+        <p>doge loves squares. much love that he got many tiles to decorate his room.</p> 
+        <h1>{{num}}</h1>
+        <p>tiles to be exact.</p>
+    </div>
     <div class="doge-column">
         <img src="/static/doge.png" id="doge">
-    </div>
-    <div class="apples-column">
-        <p>Doge was looking for a square of 0's and ones but the only thing he found was</p> 
-        <h1>{{num}} apples.</h1>
-        <p>What does he do now?</p>
     </div>
 </body>
 </html>
