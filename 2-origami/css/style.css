@@ -31,11 +31,53 @@
     }
     .not-needed {
         display: none;
-    }
-    #i16,
-    #i36 {
-        display: block;
         width: 100%;
+        margin: auto;
+    }
+    #i2,#i5 {
+        display: none;
+    }
+    #i11 {
+        display: none;
+    }
+    #i10 {
+        width: 100%;
+    }
+    #i15 {
+        display: none;
+        margin: auto;
+        width: 0;
+        height: 0;
+    }
+    #i12 {
+        display: none;
+        margin: auto;
+    }
+    #i27,
+    #i36 {
+        display: inline-block;
+    }
+    #i23,
+    #i15 {
+        width: 100%;
+    }
+    #i19 {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+    #i24,
+    #i37 {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        position: fixed;
+    }
+    #i1 {
+        display: none;
+    }
+    #i4 {
+        display: none;
         margin: auto;
     }
 }
