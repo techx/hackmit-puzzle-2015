@@ -17,6 +17,13 @@ a:hover {
     border-radius: 10px;
 }
 
+.dogegif {
+	width: 75px;
+	height: auto;
+	float: right;
+	border-radius: 10px;
+}
+
 .doge.nav {
 	width: 300px;
 }

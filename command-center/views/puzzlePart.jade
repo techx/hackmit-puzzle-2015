@@ -7,7 +7,7 @@ mixin puzzlePart(p)
             p Please try again in #{p.timeout}.
         else
             if (p.completionTimestamp)
-                .correct-guess= p.lastGuess
+                img(src="/assets/gifs/shades.gif").dogegif 
                 .correct  ✓
             else
                 form
