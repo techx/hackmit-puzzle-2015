@@ -128,7 +128,6 @@ section#splash {
       transform: translateY(-50%); }
     section#splash div.splash-container div.splash-banner {
       width: 37.5%;
-      margin: 0 auto;
       transition-duration: 3s; }
       section#splash div.splash-container div.splash-banner img {
         max-width: 100%; }
