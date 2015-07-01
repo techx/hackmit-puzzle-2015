@@ -28,6 +28,7 @@ UserController.getPuzzleStatus = function(req, res) {
                             puzzleParts[puzzleParts.length-1].timeout = convertToReadableFormat(timeout);
                             res.render('main', { puzzleParts: puzzleParts,
                                                  currentUser: user.githubUsername,
+                                                 userEmail: user.githubEmail,
                                                  done: user.completionTime,
                                                  firstFifty: user.isFirstFifty });
                         }
@@ -40,6 +41,29 @@ UserController.getPuzzleStatus = function(req, res) {
             });
         }
     });
+}
+
+UserController.updateEmail = function(req, res) {
+    if (!req.query.email) {
+        res.status(400).send({"error": "Email cannot be empty."});
+    } else {
+        mongoose.model('User').findById(req.user._id, function(err, user){
+            if (err) {
+                respondWithError(err, res);
+            } else if (!user) {
+                res.status(404).send({ "error": "This user does not exist." });
+            } else {
+                user.githubEmail = req.query.email;
+                user.save(function(err){
+                    if (err) {
+                        respondWithError(err, res);
+                    } else {
+                        res.status(200).send({ "message": "Update successful." });
+                    }
+                });
+            }
+        });
+    }
 }
 
 //////////////////////////////////////////
