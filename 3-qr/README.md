@@ -38,6 +38,7 @@ The data to encode/decode can be of any reasonable size.
 Doge was looking for a square of 0's and 1's but instead found `5640648582322565890496178177435979043940518636792816605844640720443174023400828811006458878761910187737157636056847397646712317137442` apples. What should he do?
 
 ###How to solve
+0. Download and install the Python Imgaing Library from [here](http://www.pythonware.com/products/pil/).
 1. Convert giant number to binary
 2. Split (newline) binary evenly to make a square
 3. Should look like the binary qr above
