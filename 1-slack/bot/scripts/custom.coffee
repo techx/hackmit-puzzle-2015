@@ -58,7 +58,7 @@ module.exports = (robot) ->
 
   #direct message responses
 
-  robot.hear /much|very|so|such|wow|many/i, (res) ->
+  robot.hear /much|very|so|such|wow|many|amaze/i, (res) ->
     if res.message.room.toLowerCase() == res.message.user.name.toLowerCase()
       num = robot.brain.get 'line_num'
       res.send "#{lines[num]}"
