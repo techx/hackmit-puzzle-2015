@@ -1,6 +1,14 @@
-extends layout
-block head
+doctype html 
+head
     style.
+        body {
+          padding: 50px;
+          font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        }
+
+        a {
+          color: #00B7FF;
+        }
         #puzzle, #submission-logs {
             margin-top: 50px;
         }
@@ -19,7 +27,7 @@ block head
         table, th, td {
             border: 1px solid black;
         }
-block content
+body
     script.
         window.onload = function(){
             document.getElementById("flag-user").onclick = function(event){
