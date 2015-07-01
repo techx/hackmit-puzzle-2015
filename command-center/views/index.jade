@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  h1.welcome= title
-  .welcome
+  div.welcome
+    img(src="/assets/cool-doge.jpeg")
+    h1= title
     a(href="/auth/github")
-      button.github-login Github Login
+    button.github-login Github Login
