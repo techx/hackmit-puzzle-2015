@@ -31,7 +31,7 @@ trait MazeService extends HttpService {
       get {
         respondWithMediaType(`text/html`) {
           complete {
-            page(sadFace)
+            sadPage
           }
         }
       }
@@ -40,89 +40,157 @@ trait MazeService extends HttpService {
       get {
         respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
-            page(process(steps))
+            process(steps)
           }
         }
       }
     }
   }
 
-  def page(content: scala.xml.Elem) = {
+  def page(center: scala.xml.Elem,
+           top: scala.xml.Elem,
+           left: scala.xml.Elem,
+           right: scala.xml.Elem,
+           bottom: scala.xml.Elem) = {
     <html>
       <head>
         <title>Wow!</title>
         <style>
         {scala.xml.Unparsed("""
-          pre {
-            font-size: 5em;
-            font-family: Menlo, "Courier New", Monaco, monospace;
-            color: #ff00ff;
-          }
-          a {
-            text-decoration: none;
-            color: #00ff00;
-          }
-          span {
-            color: #ff0000;
-          }
-          .special {
-            color: #00ffff;
-          }
-          #outer {
-            /* Vertical Align */
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
+        pre {
+          font-size: 5em;
+          font-family: Menlo, "Courier New", Monaco, monospace;
+          color: #ff00ff;
+        }
+
+        a {
+          text-decoration: none;
+          color: #00ff00;
+        }
+
+        span {
+          color: #ff0000;
+        }
+        .special {
+          color: #00ffff;
+        }
+        #outer {
+          /* Vertical Align */
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
 
 
-            /* Horizontally align inner */
-            width: 100%;
-            display: -moz-box;
-            -moz-box-pack: center;
-            -moz-box-align: center;
-            display: -webkit-box;
-            -webkit-box-pack: center;
-            -webkit-box-align: center;
-            display: box;
-            box-pack: center;
-            box-align: center;
-          }
-          #inner {
-          }
+          /* Horizontally align inner */
+          width: 100%;
+          display: -moz-box;
+          -moz-box-pack: center;
+          -moz-box-align: center;
+          display: -webkit-box;
+          -webkit-box-pack: center;
+          -webkit-box-align: center;
+          display: box;
+          box-pack: center;
+          box-align: center;
+        }
+        #inner {
+        }
+
+        div.box {
+          width: 100px;
+          height: 100px;
+          display: inline-block;
+          position: relative;
+          outline: 10px solid cyan;
+          margin: 0;
+        }
+
+        .edge.box {
+          background: magenta;
+        }
+
+        .red.box {
+          background: red;
+          background: url('/static/reddoge.png');
+          background-size: cover;
+        }
+
+        .green.box {
+          background: #00FF00;
+          background: url('/static/greendoge.png');
+          background-size: cover;
+        }
+
+        .no.box {
+          background: red;
+          background: url('/static/grumpycat.png');
+          background-size: cover;
+        }
+
+        .box > .content {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0; right: 0;
+          text-align: center;
+          font-size: 3em;
+        }
         """)}
         </style>
       </head>
       <body>
         <div id="outer">
           <div id="inner">
-            {content}
+            <div class="row">
+              <div class="edge box"></div>
+              { top }
+              <div class="edge box"></div>
+            </div>
+            <div class="row">
+              { left }
+              <div class="box">
+                <div class="content">
+                  { center }
+                </div>
+              </div>
+              { right }
+            </div>
+            <div class="row">
+              <div class="edge box"></div>
+              { bottom }
+              <div class="edge box"></div>
+            </div>
           </div>
         </div>
       </body>
     </html>
   }
 
-  val sadFace = {
-    <pre><span>:(</span></pre>
+  def box(s: String) = scala.xml.Unparsed(s + " box")
+
+  def div(inner: String): scala.xml.Elem = <div class={{box(inner)}}></div>
+
+  val sadPage = {
+    page(<span> </span>, div("no"), div("no"), div("no"), div("no"))
   }
 
   def process(steps: String): scala.xml.Elem = {
     import Maze._
     if (!stepsOk(steps)) {
-      sadFace
+      sadPage
     } else {
       val loc = end(steps)
       val lf = "\n"
-      val up = if (upFree(loc)) { <a href={s"/${steps}U"}>-</a> } else { <span>-</span> }
-      val down = if (downFree(loc)) { <a href={s"/${steps}D"}>-</a> } else { <span>-</span> }
-      val left = if (leftFree(loc)) { <a href={s"/${steps}L"}>|</a> } else { <span>|</span> }
-      val right = if (rightFree(loc)) { <a href={s"/${steps}R"}>|</a> } else { <span>|</span> }
+      val up = if (upFree(loc)) { <a href={s"/${steps}U"}>{div("green")}</a> } else { div("red") }
+      val down = if (downFree(loc)) { <a href={s"/${steps}D"}>{div("green")}</a> } else { div("red") }
+      val left = if (leftFree(loc)) { <a href={s"/${steps}L"}>{div("green")}</a> } else { div("red") }
+      val right = if (rightFree(loc)) { <a href={s"/${steps}R"}>{div("green")}</a> } else { div("red") }
       val mid = specialAt(loc) map { case (c, url) =>
         <a href={url} class="special">{c}</a>
       } getOrElse {
-        " "
+        <span> </span>
       }
-      <pre>+{up}+{lf}{left}{mid}{right}{lf}+{down}+</pre>
+      page(mid, up, left, right, down)
     }
   }
 
