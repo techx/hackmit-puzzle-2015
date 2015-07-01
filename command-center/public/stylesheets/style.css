@@ -1,12 +1,39 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	padding: 50px;
+	font: 14px "Comic Sans MS", "LDFComicSans"; src: url('/../assets/LDFComicSans.ttf');
+	background-color: #ffe552;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
 }
 
 .doge, .sad-doge {
     width:600px;
+}
+
+.doge.nav {
+	width: 300px;
+}
+
+h3 {
+	color: #000000;
+
+}
+
+.user-column {
+	float: left;
+	text-align: center;
+	width: 50%;
+}
+
+.content-column {
+	background-color: green;
+	float: right;
+	text-align: center;
+	width: 50%;
+}
+
+.puzzlepart {
+	background-color: red;
 }
