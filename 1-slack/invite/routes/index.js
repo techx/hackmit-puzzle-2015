@@ -23,7 +23,7 @@ router.post('/invite', function(req, res) {
         //   {"ok":true}
         //       or
         //   {"ok":false,"error":"already_invited"}
-        if (err) { return res.send('Error:' + err); }
+        if (err) { return res.render('result', { result: "error", msg: body.error, community: config.community }); }
         body = JSON.parse(body);
         if (body.ok) {
           res.render('result', { result: "success", msg: "welcome! check your email then go to dogemit.slack.com", community: config.community })
