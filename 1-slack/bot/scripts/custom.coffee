@@ -13,7 +13,7 @@
 # Author:
 #   kimberli
 
-#helpful http://doatt.com/2015/02/18/the-hubot-msg-object/
+# helpful http://doatt.com/2015/02/18/the-hubot-msg-object/
 
 module.exports = (robot) ->
 
@@ -68,13 +68,13 @@ module.exports = (robot) ->
         robot.brain.set 'line_num', num+1
 
 lines = [
-"shh this is message from dogebot",
-"shh pls send dogebot to hackmit",
-"very amaze is 'amaze '",
-"very believe is 'robot'",
-"such bark much woof",
-"very excite is amaze + woof",
-"wow excite",
-"very hack is plz bark with believe",
-"console dose loge with hack"
+  "shh this is message from dogebot",
+  "shh pls send dogebot to hackmit",
+  "very amaze is 'amaze '",
+  "very believe is 'robot'",
+  "such bark much woof",
+  "very excite is amaze + woof",
+  "wow excite",
+  "very hack is plz bark with believe",
+  "console dose loge with hack"
 ]
