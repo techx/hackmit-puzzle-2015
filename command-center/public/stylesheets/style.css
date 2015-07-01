@@ -1,6 +1,6 @@
 body {
 	padding: 50px;
-	font: 14px "Comic Sans MS", "LDFComicSans"; src: url('/../assets/LDFComicSans.ttf');
+	font: 16pt "Comic Sans MS", "LDFComicSans"; src: url('/../assets/LDFComicSans.ttf');
 	background-color: #ffe552;
 }
 
@@ -13,17 +13,26 @@ a:hover {
 }
 
 .doge, .sad-doge {
-    width:600px;
+    width:200px;
+    border-radius: 10px;
 }
 
 .doge.nav {
 	width: 300px;
 }
 
+h1 {
+	font-size: 28pt;
+}
+
 h3 {
 	color: #000000;
 	text-transform: uppercase;
 
+}
+
+.lock {
+	float: left;
 }
 
 .user-column {
@@ -33,6 +42,27 @@ h3 {
 	background-color: #FFF5BF;
 	border-radius: 10px;
 
+}
+
+.puzzle-number {
+	float: left;
+	color: black;
+	padding: 5px 5px;
+}
+
+.puzzle-number:hover {
+	color: magenta;
+}
+
+.correct {
+	float: right;
+	padding: 5px 5px;
+	color: #07D900;
+}
+
+.correct-guess {
+	float: right;
+	padding: 5px 5px;
 }
 
 .content-column {
@@ -49,4 +79,25 @@ h3 {
 	margin: 20px 20px;
 	background-color: #FFFCE8;
 	border-radius: 10px;
+	min-height: 80px;
+}
+
+input {
+	font-family: "Comic Sans MS";
+	font-size: 12pt;
+	border-radius: 5px;
+	float: right;
+}
+
+#submit-answer {
+	font-family: "Comic Sans MS";
+	font-size: 12pt;
+	float: right;
+	background-color: white;
+	border-radius: 5px;
+}
+
+#feedback {
+	font-size: 10pt;
+	color: red;
 }
