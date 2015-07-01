@@ -8,6 +8,10 @@ a {
 	color: #00B7FF;
 }
 
+a:hover {
+	color: magenta;
+}
+
 .doge, .sad-doge {
     width:600px;
 }
@@ -24,16 +28,20 @@ h3 {
 .user-column {
 	float: left;
 	text-align: center;
-	width: 50%;
+	width: 48%;
+	background-color: #FFF5BF;
+	border-radius: 10%;
+
 }
 
 .content-column {
-	background-color: green;
 	float: right;
 	text-align: center;
-	width: 50%;
+	width: 48%;
+	background-color: #FFF5BF;
+	border-radius: 10%;
 }
 
 .puzzlepart {
-	background-color: red;
+	padding: 5px 5px;
 }
