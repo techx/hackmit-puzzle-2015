@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
     if (req.isAuthenticated()) {
         userController.getPuzzleStatus(req, res);
     } else {
-         res.render('index', { title: "HackMIT Command Center" });
+         res.render('index', { title: "dogemit command center" });
     }
 });
 
