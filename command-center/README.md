@@ -12,4 +12,5 @@
 - Run `npm install $PACKAGE_NAME --save`. The save flag adds the package to the `package.json` file. 
 - Then stage and commit `package.json`.
 
-
+### Usage
+- Go to /admin/users to see a view of users and time completed
