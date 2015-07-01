@@ -63,9 +63,9 @@ function checkQR() {
 
 config.puzzles = [
     /* puzzle 1 - slack */
-    Puzzle(function(username) { return "http://0xd09ec0de.dogemit.party";}, function(guess){ return guess == "amaze robot"; }),
+    Puzzle(function(username){ return "http://0xd09ec0de.dogemit.party";}, function(guess){ return guess == "amaze robot"; }),
     /* puzzle 2 - origami */
-    Puzzle(function(username){ return "https://hackmit.org";}, function(guess){ return guess == "answer"; }),
+    Puzzle(function(username){ return "http://0x5e1f1ed09e.dogemit.party";}, function(guess){ return guess == "very wow"; }),
     /* puzzle 3 - qr */
     Puzzle(function(username){ return "http://0xd09eb17e.dogemit.party/" + username;}, checkQR()),
     /* puzzle 4 - audio */
