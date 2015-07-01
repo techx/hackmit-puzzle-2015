@@ -21,6 +21,16 @@ a:hover {
 	width: 300px;
 }
 
+.welcome {
+	margin: 0 auto;
+	text-align: center;
+	color: magenta;
+}
+
+.github-login {
+	color: #07D900;
+}
+
 h1 {
 	font-size: 28pt;
 }
@@ -29,6 +39,13 @@ h3 {
 	color: #000000;
 	text-transform: uppercase;
 
+}
+
+button {
+	font-family: "Comic Sans MS";
+	font-size: 12pt;
+	background-color: white;
+	border-radius: 5px;
 }
 
 .lock {
@@ -72,6 +89,7 @@ h3 {
 	min-height: 500px;
 	background-color: #FFF5BF;
 	border-radius: 10px;
+	padding: 20px 0px;
 }
 
 .puzzlepart {
@@ -90,11 +108,7 @@ input {
 }
 
 #submit-answer {
-	font-family: "Comic Sans MS";
-	font-size: 12pt;
 	float: right;
-	background-color: white;
-	border-radius: 5px;
 }
 
 #feedback {
