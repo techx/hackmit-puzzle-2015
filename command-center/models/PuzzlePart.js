@@ -72,7 +72,7 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
     }
     var that = this;
     guess = decodeURIComponent(guess).trim();
-    var isCorrect = Puzzles[this.number].verifierFunction(guess.trim(), username);
+    var isCorrect = Puzzles[this.number].verifierFunction(guess, username);
     // log guesses
     Submission
         .create({ user: username, 
