@@ -124,12 +124,22 @@ UserController.flagUser = function(req, res) {
 }
 
 UserController.getAllUsers = function(req, res) {
-    mongoose.model('User').find({}, "githubUsername completionTime isSuspicious").sort({ "completionTime": 1 }).exec(function(err, users) {
-        if (err) {
-            res.status(500).send(err);
-        } else {
-            res.status(200).render("userList", { users: users });
-        }
+    mongoose.model('User').find({ "completionTime": { $ne: null }}, "githubUsername completionTime isSuspicious")
+        .sort({ "completionTime": 1 })
+        .exec(function(err, completedUsers) {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                mongoose.model('User').find({ "completionTime": null}, "githubUsername completionTime isSuspicious")
+                .exec(function(err, otherUsers) {
+                    if (err){
+                        res.status(500).send(err);
+                    } else {
+                        var users = completedUsers.concat(otherUsers);
+                        res.status(200).render("userList", { users: users });
+                    }
+                });
+            }
     });
 }
 
