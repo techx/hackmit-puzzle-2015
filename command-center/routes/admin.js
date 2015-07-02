@@ -11,7 +11,7 @@ var isAdmin = function(req, res, next){
     }
 }
 
-router.get('/', puzzleController.getStats);
+router.get('/', isAdmin, puzzleController.getStats);
 
 /* Get list of users sorted by completion time */
 router.get('/users', isAdmin, userController.getAllUsers);
