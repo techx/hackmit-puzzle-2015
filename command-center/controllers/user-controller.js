@@ -124,7 +124,7 @@ UserController.flagUser = function(req, res) {
 }
 
 UserController.getAllUsers = function(req, res) {
-    mongoose.model('User').find({ "completionTime": { $ne: null }}, "githubUsername completionTime isSuspicious")
+    mongoose.model('User').find({ "completionTime": { $ne: null }}, "githubUsername completionTime isSuspicious created")
         .sort({ "completionTime": 1 })
         .exec(function(err, completedUsers) {
             if (err) {

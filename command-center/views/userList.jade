@@ -37,6 +37,7 @@ block content
         tr
             th Username
             th Completion Time
+            th Time Elapsed
         for user in users
             tr
                 td
@@ -45,3 +46,5 @@ block content
                     else
                         a(href="/admin/users/#{user.githubUsername}")= user.githubUsername
                 td= user.completionTime
+                if user.completionTime
+                    td= ((user.completionTime - user.created)/(1000*60*60)).toFixed(2) + " hours"

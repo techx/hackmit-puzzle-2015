@@ -78,6 +78,10 @@ block content
         p 
             strong Puzzle Completion Time: 
             span= user.completionTime
+        if user.completionTime
+            p
+                strong Time Elapsed: 
+                span= ((user.completionTime - user.created)/(1000*60*60)).toFixed(2) + " hours"
 
         form#suspicion-form
             label Reason for Suspicion? 
