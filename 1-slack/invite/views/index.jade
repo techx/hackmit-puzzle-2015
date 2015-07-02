@@ -29,6 +29,8 @@ html
       }
   body
     h1 Join the #{community} community on Slack!
+    p Note that your email address will be visible to everyone else on the team. Consider using a throwaway email or 
+      a(href="https://mailinator.com/") Mailinator
     form(method="POST", action="/invite")#join-form
       input(type="text", name="email", placeholder="Enter your email")#slack-email
       input(type="submit", value="wow")
