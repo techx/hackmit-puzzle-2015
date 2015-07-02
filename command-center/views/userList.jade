@@ -1,14 +1,6 @@
-doctype html
-head
+extends adminLayout
+block head
     style.
-        body {
-          padding: 50px;
-          font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-        }
-
-        a {
-          color: #00B7FF;
-        }
         th {
             text-align: left;
         }
@@ -39,7 +31,7 @@ head
         .suspicious {
             color: red;
         }
-body
+block content
     h2 All users
     table
         tr

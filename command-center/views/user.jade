@@ -1,14 +1,6 @@
-doctype html 
-head
+extends adminLayout
+block head
     style.
-        body {
-          padding: 50px;
-          font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-        }
-
-        a {
-          color: #00B7FF;
-        }
         #puzzle, #submission-logs {
             margin-top: 50px;
         }
@@ -27,7 +19,7 @@ head
         table, th, td {
             border: 1px solid black;
         }
-body
+block content
     script.
         window.onload = function(){
             document.getElementById("flag-user").onclick = function(event){

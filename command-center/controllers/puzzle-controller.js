@@ -50,4 +50,18 @@ PuzzleController.makeGuess = function(req, res){
     );
 }
 
+//////////////// ADMIN ONLY ////////////////
+PuzzleController.getStats = function(req, res) {
+    mongoose.model('PuzzlePart').aggregate({
+            $group : { _id : "$number" , count: { $sum: 1 }}
+        },  function(err, stats){
+                console.log(stats);
+                if (err){
+                    res.status(500).send(err);
+                } else {
+                    res.status(200).render('admin', { "stats": stats });
+                }
+            });
+}
+
 module.exports = PuzzleController;
