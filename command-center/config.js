@@ -77,4 +77,6 @@ config.puzzles = [
     Puzzle(function(username){ return "http://0xd09e5ec.dogemit.party";}, check('amaze algorithm')),
 ];
 
+config.slackWebhook = "https://hooks.slack.com/services/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";
+
 module.exports = config;

@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
+var request = require('request');
 var Submission = require('./Submission');
 var Puzzles = require('../config').puzzles;
+var SLACK_WEBHOOK = require('../config').slackWebhook;
+var PUBLIC_HOST_URL = require('../config').publicHostUrl;
 
 // seconds
 BACKOFF_INTERVALS = [0, 30, 120, 300, 600, 1800, 3600]
@@ -22,6 +25,22 @@ var puzzlePartSchema = new mongoose.Schema({
 });
 
 puzzlePartSchema.set('autoIndex', false);
+
+var postCompletionToSlack = function(username, callback){
+    var options = {
+      method: 'post',
+      body: {"text": "<" + PUBLIC_HOST_URL +
+                     "/admin/users/" + username + "|" + username + "> has solved the puzzle!",
+             "channel": "#puzzle",
+             "username": "Puzzle Monitor",
+             "icon_emoji": ":dog:" },
+      json: true,
+      url: SLACK_WEBHOOK
+    }
+    request(options, function(err, httpResponse, body){
+        callback(err, true);
+    });
+}
 
 puzzlePartSchema.statics.createPart = function(userId, githubUsername, number, callback) {
     this.create({ user: userId, number: number, url: Puzzles[number].generateUrl(githubUsername) }, callback);
@@ -107,7 +126,7 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                                                 user.completionTime = Date.now();
                                                 user.isFirstFifty = count < 50;
                                                 user.save(function(err) {
-                                                    callback(err, true);
+                                                    postCompletionToSlack(user.githubUsername, callback);
                                                 });
                                             }
                                         });
