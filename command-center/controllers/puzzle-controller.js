@@ -55,7 +55,6 @@ PuzzleController.getStats = function(req, res) {
     mongoose.model('PuzzlePart').aggregate({
             $group : { _id : "$number" , count: { $sum: 1 }}
         },  function(err, stats){
-                console.log(stats);
                 if (err){
                     res.status(500).send(err);
                 } else {
