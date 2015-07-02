@@ -17,10 +17,7 @@ block content
             if done
                 script
                     include ./js/update-email.js
-                if firstFifty
-                    h2.congrats YAY YOU WERE ONE OF THE FIRST 50 TO FINISH THE PUZZLE! very solve much impress
-                else 
-                    h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
+                h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
                 form
                     input(type="email", value=userEmail, name="email")
                     br

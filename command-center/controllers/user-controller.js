@@ -29,8 +29,7 @@ UserController.getPuzzleStatus = function(req, res) {
                             res.render('main', { puzzleParts: puzzleParts,
                                                  currentUser: user.githubUsername,
                                                  userEmail: user.githubEmail,
-                                                 done: user.completionTime,
-                                                 firstFifty: user.isFirstFifty });
+                                                 done: user.completionTime });
                         }
                     });
                 } else {
