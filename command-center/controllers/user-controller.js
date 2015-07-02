@@ -103,13 +103,23 @@ UserController.flagUser = function(req, res) {
         } else if (!user){
             res.status(404).send({ "error": "User not found." });
         } else {
-            user.flag(req.query.reason, req.user.githubUsername, function(err){
-                if (err){
-                    res.status(500).send(err);
-                } else {
-                    res.status(200).send({ "message": "Successfully flagged user." });
-                }
-            })
+            if (req.query.flag == "y") {
+                user.flag(req.query.reason, req.user.githubUsername, function(err){
+                    if (err){
+                        res.status(500).send(err);
+                    } else {
+                        res.status(200).send({ "message": "Successfully flagged user." });
+                    }
+                });
+            } else {
+                user.unflag(function(err){
+                    if (err){
+                        res.status(500).send(err);
+                    } else {
+                        res.status(200).send({ "message": "Successfully flagged user." });
+                    }
+                });
+            }
         }
     });
 }

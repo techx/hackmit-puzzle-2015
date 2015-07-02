@@ -42,4 +42,9 @@ userSchema.method('flag', function(reason, flaggedBy, callback){
     this.save(callback);
 });
 
+userSchema.method('unflag', function(callback){
+    this.isSuspicious = false;
+    this.save(callback);
+});
+
 module.exports = mongoose.model('User', userSchema);

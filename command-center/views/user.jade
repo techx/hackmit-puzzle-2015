@@ -32,13 +32,18 @@ body
         window.onload = function(){
             document.getElementById("flag-user").onclick = function(event){
                 event.preventDefault();
-                flagUser();
+                flagUnflagUser("y");
             }
 
-            var flagUser = function(){
+            document.getElementById("unflag-user").onclick = function(event){
+                event.preventDefault;
+                flagUnflagUser("n");
+            }
+
+            var flagUnflagUser = function(flag){
                 var xmlhttp = new XMLHttpRequest();
                 var reason = document.forms[0].reason.value;
-                xmlhttp.open("POST", "/admin/users/#{user.githubUsername}?reason=" + reason, true);
+                xmlhttp.open("POST", "/admin/users/#{user.githubUsername}?flag=" + flag + "&reason=" + reason, true);
                 xmlhttp.onreadystatechange = function() {
                     if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                         if (xmlhttp.status == 200 || xmlhttp.status == 201) {  
@@ -57,7 +62,8 @@ body
         h2 User Information
         p 
             strong Github Username: 
-            span= user.githubUsername
+            span
+                a(href="https://www.github.com/#{user.githubUsername}")=user.githubUsername
         p 
             strong Github Email: 
             span= user.githubEmail
@@ -85,6 +91,7 @@ body
             label Reason for Suspicion? 
             input(type="text", value=user.reasonForSuspicion, name="reason")
         button#flag-user Flag User as Suspicious
+        button#unflag-user Unflag User
 
     div#puzzle
         h2 Puzzle Information
