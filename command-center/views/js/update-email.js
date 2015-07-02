@@ -39,10 +39,7 @@ window.onload = function(){
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                 if (xmlhttp.status == 200 || xmlhttp.status == 201) { 
-                    var correct = JSON.parse(xmlhttp.responseText).correct;
-                    if (correct){
-                        window.location = '/';
-                    } 
+                    document.getElementById("email").style.color = "#07D900";
                 } else {
                     document.getElementById("error").innerHTML 
                         = JSON.parse(xmlhttp.responseText).error;
