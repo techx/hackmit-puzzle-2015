@@ -15,7 +15,7 @@ var userSchema = new mongoose.Schema({
 userSchema.set('autoIndex', false);
 
 userSchema.statics.findOrCreate = function(parameters, callback){
-    mongoose.model('User').findOne(parameters, function(err, user){
+    mongoose.model('User').findOne({"githubUsername": parameters.githubUsername}, function(err, user){
         if (err) {
             callback(err);
         } else if (user) {

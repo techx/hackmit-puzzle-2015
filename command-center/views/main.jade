@@ -15,14 +15,15 @@ block content
                 button#start-button Start Puzzle!
         else
             if done
-                script
-                    include ./js/update-email.js
-                h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
-                form
-                    input(type="email", value=userEmail, name="email")
-                    br
-                button#update-email Submit your email to let doge know who helped him!
-                div#feedback
+                div.done
+                    script
+                        include ./js/update-email.js
+                    h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
+                    form
+                        input(type="email", value=userEmail, name="email")
+                        br
+                    button#update-email Submit your email to let doge know who helped him!
+                    div#feedback
             else
                 script
                     include ./js/make-guess.js

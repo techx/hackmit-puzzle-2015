@@ -35,6 +35,10 @@ head
             min-width: 1em;
             margin-right: 0.5em;
         }
+
+        .suspicious {
+            color: red;
+        }
 body
     h2 All users
     table
@@ -44,5 +48,8 @@ body
         for user in users
             tr
                 td
-                    a(href="/admin/users/#{user.githubUsername}")= user.githubUsername
+                    if user.isSuspicious
+                        a(href="/admin/users/#{user.githubUsername}").suspicious= user.githubUsername
+                    else
+                        a(href="/admin/users/#{user.githubUsername}")= user.githubUsername
                 td= user.completionTime

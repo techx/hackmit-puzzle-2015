@@ -28,6 +28,10 @@ a:hover {
 	width: 300px;
 }
 
+.done {
+	margin: 50px;
+}
+
 .welcome {
 	padding:50px;
 	margin: 0 auto;
