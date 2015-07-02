@@ -1,12 +1,12 @@
 window.onload = function(){
-    document.getElementById("start-button").onclick = function(event){
+    document.getElementById("logout").onclick = function(event){
         event.preventDefault();
-        createNewPuzzle();
+        logout();
     }
 
-    var createNewPuzzle = function(){
+    var logout = function(){
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", "/puzzle", true);
+        xmlhttp.open("POST", "/auth/logout", true);
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
                 if (xmlhttp.status == 200 || xmlhttp.status == 201) {  
