@@ -2,18 +2,18 @@ import requests
 import re
 import time
 
-BASE_URL = "http://52.26.103.152"
+BASE_URL = "http://0xd09eeffec7.dogemit.party"
 stack = []
 found = {}
 
 def get_response(url):
-    return requests.get(url).text[500:-25]
+    return requests.get(url).text
 
 def get_next_urls(text):
     return re.findall("/[UDLR]+", text)
 
 def check_for_image(text):
-    m = re.search("/static/[a-z0-9]+\.png", text)
+    m = re.search("/static/[a-z0-9]{32}\.png", text)
     if m:
         image_url = m.group()
         if image_url not in found:

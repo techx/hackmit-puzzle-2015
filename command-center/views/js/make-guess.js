@@ -35,7 +35,7 @@ window.onload = function(){
         }
         var xmlhttp = new XMLHttpRequest();
         var puzzleNumber = document.forms[0].puzzleNumber.value;
-        var guess = document.forms[0].guess.value;
+        var guess = encodeURIComponent(document.forms[0].guess.value);
         xmlhttp.open("POST", "/puzzle/guess?puzzleNumber=" + puzzleNumber + "&guess=" + guess, true);
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === XMLHttpRequest.DONE) {
