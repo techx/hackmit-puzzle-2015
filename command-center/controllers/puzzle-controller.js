@@ -1,6 +1,25 @@
 var mongoose = require('mongoose');
+var request = require('request');
 var PuzzleController = {}
 var respondWithError = require('../utils/helpers').respondWithError;
+var SLACK_WEBHOOK = require('../config').slackWebhook;
+var PUBLIC_HOST_URL = require('../config').publicHostUrl;
+
+var postCompletionToSlack = function(username, callback){
+    var options = {
+      method: 'post',
+      body: {"text": "<" + PUBLIC_HOST_URL +
+                     "/admin/users/" + username + "|" + username + "> has solved the puzzle!",
+             "channel": "#puzzle",
+             "username": "Puzzle Monitor",
+             "icon_emoji": ":dog:" },
+      json: true,
+      url: SLACK_WEBHOOK
+    }
+    request(options, function(err, httpResponse, body){
+        callback(err, true);
+    });
+}
 
 PuzzleController.createNew = function(req, res){
     mongoose.model('PuzzlePart').count({ user: req.user._id }, function(err, count){
@@ -36,9 +55,17 @@ PuzzleController.makeGuess = function(req, res){
                     } else if (puzzlePart.completionTimestamp) {
                         res.status(400).send({ "error": "You already finished this part of the puzzle." });
                     } else {
-                        puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct){
+                        puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct, done){
                             if (err){
                                 respondWithError(err, res);
+                            } else if (done) {
+                                    postCompletionToSlack(req.user.githubUsername, function(err){
+                                        if (err) {
+                                            console.log("Something went wrong with the Slack Webhook.");
+                                        } else {
+                                            res.status(200).send({ "correct": correct });
+                                        }
+                                    });
                             } else {
                                 res.status(200).send({ "correct": correct });
                             }
