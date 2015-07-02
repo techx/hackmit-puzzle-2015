@@ -30,7 +30,8 @@ config.admins = [ "katexyu",
                   "ehzhang",
                   "jenniferjzhang",
                   "zareenc",
-                  "Fertogo" ];
+                  "Fertogo",
+                  "mysticuno" ];
 
 function check(answer) {
     return function(guess) {
