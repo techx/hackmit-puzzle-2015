@@ -55,17 +55,17 @@ PuzzleController.makeGuess = function(req, res){
                     } else if (puzzlePart.completionTimestamp) {
                         res.status(400).send({ "error": "You already finished this part of the puzzle." });
                     } else {
-                        puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct, done){
+                        puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct, slack){
                             if (err){
                                 respondWithError(err, res);
-                            } else if (done) {
-                                    postCompletionToSlack(req.user.githubUsername, function(err){
-                                        if (err) {
-                                            console.log("Something went wrong with the Slack Webhook.");
-                                        } else {
-                                            res.status(200).send({ "correct": correct });
-                                        }
-                                    });
+                            } else if (slack == "slack") {
+                                postCompletionToSlack(req.user.githubUsername, function(err){
+                                    if (err) {
+                                        console.log("Something went wrong with the Slack Webhook.");
+                                    } else {
+                                        res.status(200).send({ "correct": correct });
+                                    }
+                                });
                             } else {
                                 res.status(200).send({ "correct": correct });
                             }

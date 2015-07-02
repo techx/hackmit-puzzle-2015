@@ -107,7 +107,7 @@ puzzlePartSchema.method('makeGuess', function(username, guess, callback){
                                                 user.completionTime = Date.now();
                                                 user.isFirstFifty = count < 50;
                                                 user.save(function(err) {
-                                                    callback(err, true, true);
+                                                    callback(err, true, "slack");
                                                 });
                                             }
                                         });
