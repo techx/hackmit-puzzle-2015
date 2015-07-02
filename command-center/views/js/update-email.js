@@ -1,15 +1,15 @@
 window.onload = function(){
     document.getElementById("update-email").onclick = function(event){
         event.preventDefault();
-        makeGuess();
+        updateEmail();
     }
 
     document.forms[0].onsubmit = function(event){
         event.preventDefault();
-        makeGuess();
+        updateEmail();
     }
 
-    var makeGuess = function(){
+    var updateEmail = function(){
         if (!document.forms[0].email.value.trim()){
             return;
         }

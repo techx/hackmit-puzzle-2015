@@ -1,9 +1,13 @@
 extends layout
 block head
 block content
+    script
+         include ./js/logout.js
     .user-column
         h1 What's up #{currentUser}
         img(src="/assets/doge.png").doge.nav
+        div.logout
+            button#logout Leave??
     .content-column
         div#error
         if puzzleParts.length == 0

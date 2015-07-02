@@ -44,6 +44,9 @@ a:hover {
 	color: #07D900;
 }
 
+.logout {
+	margin-bottom:40px;
+}
 h1 {
 	font-size: 28pt;
 }
