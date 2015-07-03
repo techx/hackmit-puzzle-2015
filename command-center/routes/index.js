@@ -10,4 +10,6 @@ router.get('/', function(req, res) {
     }
 });
 
+router.get('/aretherespotsleft', userController.areThereSpotsLeft);
+
 module.exports = router;

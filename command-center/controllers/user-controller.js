@@ -10,6 +10,17 @@ var convertToReadableFormat = function(timeout) {
     return time;
 }
 
+UserController.areThereSpotsLeft = function(req, res) {
+    mongoose.model('User').count({ "completionTime" : { $ne: null}, "isSuspicious": false }
+        , function(err, count){
+            if (err) {
+                respondWithError(err);
+            } else {
+                res.status(200).send( count < 50 );
+            }
+        });
+}
+
 UserController.getPuzzleStatus = function(req, res) {
     mongoose.model('User').findById(req.user._id, function(err, user){
         if (err) {
