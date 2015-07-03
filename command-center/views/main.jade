@@ -13,12 +13,13 @@ block content
                 include ./js/create-puzzle.js
             form
                 button#start-button Start Puzzle!
-        else
+        else    
             if done
                 div.done
                     script
                         include ./js/update-email.js
                     h2.congrats YAY YOU FINISHED THE PUZZLE! very solve much impress
+                    p (Make sure you still register at https://my.hackmit.org!)
                     form
                         input(type="email", value=userEmail, name="email")#email
                         br
