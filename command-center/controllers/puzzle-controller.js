@@ -58,14 +58,14 @@ PuzzleController.makeGuess = function(req, res){
                         puzzlePart.makeGuess(req.user.githubUsername, req.query.guess, function(err, correct, slack){
                             if (err){
                                 respondWithError(err, res);
-                            } else if (slack == "slack") {
-                                postCompletionToSlack(req.user.githubUsername, function(err){
-                                    if (err) {
-                                        console.log("Something went wrong with the Slack Webhook.");
-                                    } else {
-                                        res.status(200).send({ "correct": correct });
-                                    }
-                                });
+                            // } else if (slack == "slack") {
+                            //     postCompletionToSlack(req.user.githubUsername, function(err){
+                            //         if (err) {
+                            //             console.log("Something went wrong with the Slack Webhook.");
+                            //         } else {
+                            //             res.status(200).send({ "correct": correct });
+                            //         }
+                            //     });
                             } else {
                                 res.status(200).send({ "correct": correct });
                             }
