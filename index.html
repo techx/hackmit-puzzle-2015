@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+  very splash
+  much hackmit
+  wow doge
+
+  <3
+  anishathalye
+  katexyu
+  kimberli
+  fertogo
+  jenniferjzhang
+  mysticuno
+  detry322
+  ehzhang
+
+  The puzzle is over! THANKS FOR PLAYING! View our blog post here:
+
+  https://medium.com/hackmit-stories/such-confuse-hackmit-puzzle-guide-2015-1-4-49dc960f0321
+
+  You can find the repo to the puzzle here:
+
+  https://github.com/techx/hackmit-puzzle-2015/
+
+-->
+<html>
+<head lang="en">
+  <title>dogeMIT 2015</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+
+  <link rel="icon" type="image/png" href="/assets/images/hack-logo-favicon.png">
+  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Lato:300" rel="stylesheet" type="text/css">
+  <link href="stylesheets/main.css" rel="stylesheet" type="text/css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <!-- Include Semantic-UI -->
+  <link href="bower_components/semantic-ui/build/packaged/css/semantic.min.css" rel="stylesheet" type="text/css">
+  <script src="bower_components/semantic-ui/build/packaged/javascript/semantic.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-63828172-2', 'auto');
+  ga('send', 'pageview');
+  </script>
+</head>
+
+<body>
+  <section id="splash">
+    <div class="splash-container">
+      <div class="splash-relative">
+      <div class="splash-banner">
+        <img class="doge" src="assets/images/doge.png"/>
+        <h1 id="doge-text" class="comic-sans-bold title">DOGEMIT</h1>
+      </div>
+      <div class="splash-text">
+        <h2 id="main-text" class="comic-sans title">such hack much wow</h1>
+      </div>
+      </div>
+    </div>
+  </section>
+  <script>
+  var colors = ['#ff0000', '#00ff00', '#0000ff', '#00ffff', '#ff00ff', '#00ffff'];
+  var offset = 3;
+  var mainText = document.getElementById('main-text');
+  var dogeText = document.getElementById('doge-text');
+  var i = 0;
+  var j = 0;
+  function recolor() {
+    if (j % 2 === 0) {
+      mainText.style.color = colors[i];
+    } else {
+      dogeText.style.color = colors[(i + offset) % colors.length];
+    }
+    j = 1 - j;
+    if (j % 2 === 0) {
+      i = i + 1;
+      if (i >= colors.length) {
+        i = 0;
+      }
+    }
+  }
+  var bpm = 320;
+  var step = 60 / bpm * 1000;
+  var prev = 0; // in milliseconds
+  function animate(timestamp) {
+    console.log(timestamp);
+    if (timestamp - prev > step) {
+      recolor();
+      prev = timestamp;
+    }
+    window.requestAnimationFrame(animate);
+  }
+  window.requestAnimationFrame(animate); // kick off animation
+  </script>
+  <div id="player"></div>
+  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    var player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: 'sd4bqmP_460',
+        playerVars: {
+          controls: 0,
+          showinfo: 0,
+          iv_load_policy: 3,
+          end: 117,
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange
+        }
+      });
+    }
+    function onPlayerReady(event) {
+      event.target.playVideo();
+
+   		var doge = $('img.doge');
+
+      setInterval(function(){
+      	doge.hasClass('right') ? doge.removeClass('right').addClass('left') : doge.addClass('right').removeClass('left');
+      },1000)
+
+
+		setInterval(function(){
+		  var nodes = document.getElementsByClassName('splash-banner');
+
+		  var w = window.innerWidth;
+		  var h = window.innerHeight;
+
+		  w -= $('.doge').width();
+		  h -= $('.doge').width();
+
+		  for (var i =0; i < nodes.length; i++){
+		    var node = nodes[i];
+
+		    var r_w = Math.random() * w + 'px';
+		    var r_h = Math.random() * h + 'px';
+		    var r_z = Math.random() * 100;
+
+
+		    var translate = "translate3d(" + r_w + "," + r_h + ", 0)";
+		    node.style.transform = translate;
+
+		    node.style.fontSize = (Math.random() * 80 + 24) + 'px';
+		  }
+
+		}, 1000);
+    }
+    function onPlayerStateChange(event) {
+      if (event.data == YT.PlayerState.ENDED) {
+        player.playVideo();
+      }
+    }
+  </script>
+</body>
+</html>
